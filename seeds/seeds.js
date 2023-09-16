@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const Room = require('../models/Room');
-const seedRooms = require('./roomSeeds');
-const seedEmployees = require('./employeeSeeds');
-const Employee = require('../models/Employee');
+const { Room, Employee } = require('../models');
+const { seedRooms, seedEmployees } = require('./index');
 
 mongoose
     .connect('mongodb://localhost:27017/roomManagerDB', {
