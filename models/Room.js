@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const formatDate = require('../utils/formatDate');
 
 const RoomSchema = new Schema(
     {
@@ -18,7 +19,7 @@ const RoomSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "employee",
-            }
+            },
         ],
         status: {
             type: String,
@@ -40,7 +41,16 @@ const RoomSchema = new Schema(
         },
         masterDeluxe: {
             type: Boolean,
-        }
+        },
+        lastUpdated: {
+            type: Date,
+            default: Date.now,
+            get: (date) => (formatDate(date)),
+        },
+        updatedBy: {
+            type: Schema.Types.ObjectId,
+            ref: "employee",
+        },
     },
 );
 
