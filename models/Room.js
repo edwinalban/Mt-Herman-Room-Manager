@@ -52,6 +52,12 @@ const RoomSchema = new Schema(
             ref: "employee",
         },
     },
+    {
+        toJSON: {
+            getters: true,
+        },
+        id: false,
+    },
 );
 
 const Room = model('room', RoomSchema);
