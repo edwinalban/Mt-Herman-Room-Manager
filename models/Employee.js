@@ -19,7 +19,13 @@ const EmployeeSchema = new Schema(
             type: String,
             required: true,
         },
-    },
+        roomsAssigned: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "room"
+            }
+        ],
+    }
 );
 
 EmployeeSchema.pre('save', async function (next) {
@@ -41,4 +47,6 @@ EmployeeSchema.methods.validatePassword = async function validatePassword(employ
     return bcrypt.compare(employeePassword, this.password);
 };
 
-module.exports = mongoose.model('employee', EmployeeSchema);
+const Employee = model('employee', EmployeeSchema);
+
+module.exports = Employee;

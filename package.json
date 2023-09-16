@@ -1,0 +1,29 @@
+{
+  "name": "mt-herman-room-manager",
+  "version": "1.0.0",
+  "description": "App for managing the status of room as Mt. Herman",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node seeds/seeds.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwinalban/Mt-Herman-Room-Manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edwinalban/Mt-Herman-Room-Manager/issues"
+  },
+  "homepage": "https://github.com/edwinalban/Mt-Herman-Room-Manager#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dayjs": "^1.11.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
