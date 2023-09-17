@@ -4,6 +4,13 @@ const {
     lakesideRoomSeeds,
     laurelRoomSeeds,
     gwinnRoomSeeds,
+    madroneRoomSeeds,
+    mapleRoomSeeds,
+    oakRoomSeeds,
+    firRoomSeeds,
+    pineRoomSeeds,
+    manzanitaRoomSeeds,
+    sequoiaRoomSeeds,
     employeeSeeds,
 } = require('./index');
 
@@ -23,6 +30,13 @@ const seedDB = async () => {
     await Room.insertMany(lakesideRoomSeeds);
     await Room.insertMany(laurelRoomSeeds);
     await Room.insertMany(gwinnRoomSeeds);
+    await Room.insertMany(madroneRoomSeeds);
+    await Room.insertMany(mapleRoomSeeds);
+    await Room.insertMany(oakRoomSeeds);
+    await Room.insertMany(firRoomSeeds);
+    await Room.insertMany(pineRoomSeeds);
+    await Room.insertMany(manzanitaRoomSeeds);
+    await Room.insertMany(sequoiaRoomSeeds);
     await Employee.deleteMany({});
     await Employee.insertMany(employeeSeeds);
 };

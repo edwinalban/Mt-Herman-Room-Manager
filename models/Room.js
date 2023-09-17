@@ -13,7 +13,7 @@ const RoomSchema = new Schema(
             required: true,
         },
         roomNumber: {
-            type: Number,
+            type: String,
             required: true,
         },
         assignedTo: [
