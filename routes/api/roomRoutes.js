@@ -3,7 +3,9 @@ const router = require('express').Router();
 const {
     getRooms,
     getOneRoom,
-    updateRoomStatus,
+    updateRoom,
+    assignRoom,
+    unassignRoom,
 } = require('../../controllers/roomControllers');
 
 router.route('/')
@@ -11,6 +13,10 @@ router.route('/')
 
 router.route('/:roomId')
     .get(getOneRoom)
-    .put(updateRoomStatus);
+    .put(updateRoom);
+
+router.route('/:roomId/:employeeId')
+    .put(assignRoom)
+    .delete(unassignRoom);
 
 module.exports = router;

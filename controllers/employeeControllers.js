@@ -1,4 +1,4 @@
-const { Employee } = require('../models');
+const { Employee, Room } = require('../models');
 
 module.exports = {
     async getEmployees(req, res) {
@@ -65,11 +65,18 @@ module.exports = {
                 res.status(404)
                     .json({ message: "No employee with that ID" });
             }
+
+            const room = await Room.find({ assignedTo: { $in: employee } });
+            
+            for (let i = 0; i < room.length; i++) {
+                room[i].assignedTo.pull(employee)
+                room[i].save();
+            }
+
+            res.json({ message: "Employee deleted" })
         } catch (e) {
             res.status(500)
                 .json(e);
         }
-
-        res.json({message: "Employee deleted"})
     },
 };
