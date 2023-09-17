@@ -1,6 +1,6 @@
 const express = require('express');
 
-const laurelSeedRooms = [
+const laurelRoomSeeds = [
     {
         building: "Laurel",
         floor: 1,
@@ -301,6 +301,6 @@ const laurelSeedRooms = [
         masterDeluxe: false,
         ada: false,
     },
-]
+];
 
-module.exports = laurelSeedRooms;
+module.exports = laurelRoomSeeds;

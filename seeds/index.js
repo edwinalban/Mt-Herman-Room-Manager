@@ -1,10 +1,12 @@
-const lakesideSeedRooms = require('./lakesideRoomsSeeds');
-const laurelSeedRooms = require('./laurelRoomsSeeds');
+const lakesideRoomSeeds = require('./lakesideRoomSeeds');
+const laurelRoomSeeds = require('./laurelRoomSeeds');
+const gwinnRoomSeeds = require('./gwinnRoomSeeds');
 
-const seedEmployees = require('./employeeSeeds');
+const employeeSeeds = require('./employeeSeeds');
 
 module.exports = {
-    lakesideSeedRooms,
-    laurelSeedRooms,
-    seedEmployees
+    lakesideRoomSeeds,
+    laurelRoomSeeds,
+    gwinnRoomSeeds,
+    employeeSeeds
 };

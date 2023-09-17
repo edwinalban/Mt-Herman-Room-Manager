@@ -1,6 +1,6 @@
 const express = require('express');
 
-const seedEmployees = [
+const employeeSeeds = [
     {
         username: "edwin",
         password: "password",
@@ -21,4 +21,4 @@ const seedEmployees = [
     },
 ]
 
-module.exports = seedEmployees;
+module.exports = employeeSeeds;

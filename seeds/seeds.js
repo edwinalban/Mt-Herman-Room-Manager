@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const { Room, Employee } = require('../models');
-const { seedEmployees, lakesideSeedRooms, laurelSeedRooms } = require('./index');
+const {
+    lakesideRoomSeeds,
+    laurelRoomSeeds,
+    gwinnRoomSeeds,
+    employeeSeeds,
+} = require('./index');
 
 mongoose
     .connect('mongodb://localhost:27017/roomManagerDB', {
@@ -15,10 +20,11 @@ mongoose
 
 const seedDB = async () => {
     await Room.deleteMany({});
-    await Room.insertMany(lakesideSeedRooms);
-    await Room.insertMany(laurelSeedRooms);
+    await Room.insertMany(lakesideRoomSeeds);
+    await Room.insertMany(laurelRoomSeeds);
+    await Room.insertMany(gwinnRoomSeeds);
     await Employee.deleteMany({});
-    await Employee.insertMany(seedEmployees);
+    await Employee.insertMany(employeeSeeds);
 };
 
 seedDB()

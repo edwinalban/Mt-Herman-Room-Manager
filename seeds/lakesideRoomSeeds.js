@@ -1,6 +1,6 @@
 const express = require('express');
 
-const lakesideSeedRooms = [
+const lakesideRoomSeeds = [
     {
         building: "Lakeside",
         floor: 5,
@@ -603,4 +603,4 @@ const lakesideSeedRooms = [
     },
 ]
 
-module.exports = lakesideSeedRooms;
+module.exports = lakesideRoomSeeds;
