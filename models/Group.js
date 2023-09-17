@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const formatDate = require('../utils/formatDate');
 
 const groupSchema = new Schema(
     {
@@ -14,10 +15,12 @@ const groupSchema = new Schema(
         arriving: {
             type: Date,
             required: true,
+            get: (date) => formatDate(date),
         },
         departing: {
             type: Date,
             required: true,
+            get: (date) => formatDate(date),
         },
         midweek: {
             type: Boolean,
@@ -27,6 +30,31 @@ const groupSchema = new Schema(
             type: Boolean,
             default: true,
         },
+        building: {
+            type: String,
+            required: true,
+        },
+        floor: {
+            type: String,
+            required: true,
+        },
+        roomNumber: {
+            type: String,
+            required: true,
+        },
+        ada: {
+            type: Boolean,
+            required: true,
+        },
+        amenities: {
+            type: String,
+        },
+    },
+    {
+        toJSON: {
+            getters: true,
+        },
+        id: false,
     },
 );
 
