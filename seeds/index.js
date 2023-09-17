@@ -8,6 +8,11 @@ const firRoomSeeds = require('./firRoomSeeds');
 const pineRoomSeeds = require('./pineRoomSeeds');
 const manzanitaRoomSeeds = require('./manzanitaRoomSeeds');
 const sequoiaRoomSeeds = require('./sequoiaRoomSeeds');
+const woodwardiaRoomSeeds = require('./woodwardiaRoomSeeds');
+const aspenRoomSeeds = require('./aspenRoomSeeds');
+const birchRoomSeeds = require('./birchRoomSeeds');
+const buckeyeRoomSeeds = require('./buckeyeRoomSeeds');
+const nanRoomNumberSeeds = require('./nanRoomNumberSeeds');
 
 const employeeSeeds = require('./employeeSeeds');
 
@@ -22,5 +27,10 @@ module.exports = {
     pineRoomSeeds,
     manzanitaRoomSeeds,
     sequoiaRoomSeeds,
+    woodwardiaRoomSeeds,
+    aspenRoomSeeds,
+    birchRoomSeeds,
+    buckeyeRoomSeeds,
+    nanRoomNumberSeeds,
     employeeSeeds
 };
