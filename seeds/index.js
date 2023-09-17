@@ -7,7 +7,7 @@ const oakRoomSeeds = require('./oakRoomSeeds');
 const firRoomSeeds = require('./firRoomSeeds');
 const pineRoomSeeds = require('./pineRoomSeeds');
 const manzanitaRoomSeeds = require('./manzanitaRoomSeeds');
-const sequoiaRoomSeeds = require('./sequioaRoomSeeds');
+const sequoiaRoomSeeds = require('./sequoiaRoomSeeds');
 
 const employeeSeeds = require('./employeeSeeds');
 
