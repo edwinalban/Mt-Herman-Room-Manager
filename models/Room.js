@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const formatDate = require('../utils/formatDate');
+const groupSchema = require('./Group');
 
 const RoomSchema = new Schema(
     {
@@ -41,6 +42,7 @@ const RoomSchema = new Schema(
         },
         masterDeluxe: {
             type: Boolean,
+            required: true,
         },
         lastUpdated: {
             type: Date,
@@ -51,6 +53,11 @@ const RoomSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "employee",
         },
+        ada: {
+            type: Boolean,
+            required: true,
+        },
+        group: [groupSchema],
     },
     {
         toJSON: {

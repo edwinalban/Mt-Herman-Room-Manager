@@ -1,4 +1,4 @@
-const seedRooms = require('./roomSeeds');
+const lakesideSeedRooms = require('./lakesideRoomsSeeds');
 const seedEmployees = require('./employeeSeeds');
 
-module.exports = {seedRooms, seedEmployees};
+module.exports = {lakesideSeedRooms, seedEmployees};
