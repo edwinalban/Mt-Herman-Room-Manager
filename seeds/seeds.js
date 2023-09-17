@@ -16,8 +16,9 @@ const {
     birchRoomSeeds,
     buckeyeRoomSeeds,
     nanRoomNumberSeeds,
-    employeeSeeds,
-} = require('./index');
+} = require('./room');
+
+const employeeSeeds = require('./employee');
 
 mongoose
     .connect('mongodb://localhost:27017/roomManagerDB', {

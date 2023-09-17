@@ -14,8 +14,6 @@ const birchRoomSeeds = require('./birchRoomSeeds');
 const buckeyeRoomSeeds = require('./buckeyeRoomSeeds');
 const nanRoomNumberSeeds = require('./nanRoomNumberSeeds');
 
-const employeeSeeds = require('./employeeSeeds');
-
 module.exports = {
     lakesideRoomSeeds,
     laurelRoomSeeds,
@@ -32,5 +30,4 @@ module.exports = {
     birchRoomSeeds,
     buckeyeRoomSeeds,
     nanRoomNumberSeeds,
-    employeeSeeds
 };
