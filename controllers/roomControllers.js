@@ -38,6 +38,7 @@ module.exports = {
                     .json({ message: "No room with that ID" });
             }
 
+            room.lastUpdated = Date.now(); // Make log of updates/who updated?
             room.set(req.body);
             room.save();
             res.json({ message: "Room status updated" });
