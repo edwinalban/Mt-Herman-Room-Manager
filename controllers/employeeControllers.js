@@ -62,7 +62,7 @@ module.exports = {
             const employee = await Employee.findOneAndDelete({ _id: req.params.employeeId });
 
             if (!employee) {
-                res.status(404)
+                return res.status(404)
                     .json({ message: "No employee with that ID" });
             }
 

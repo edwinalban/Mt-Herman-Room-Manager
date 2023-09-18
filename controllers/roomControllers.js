@@ -81,14 +81,14 @@ module.exports = {
             const room = await Room.findOne({ _id: req.params.roomId });
 
             if (!room) {
-                res.status(404)
+                return res.status(404)
                     .json({ message: "No room with that ID" });
             }
 
             const employee = await Employee.findOne({ _id: req.params.employeeId });
 
             if (!employee) {
-                res.status(404)
+                return res.status(404)
                     .json({ message: "No employee with that ID" });
             }
 

@@ -5,6 +5,7 @@ const router = require('express').Router();
 const {
     assignGroup,
     unassignGroup,
+    updateGroup,
 } = require('../../controllers/groupControllers');
 
 // imports functions from roomControllers.js
@@ -36,7 +37,8 @@ router.route('/:roomId/group')
 
 // api/rooms/:roomId/group/:groupId
 router.route('/:roomId/group/:groupId')
-    .delete(unassignGroup); // removes group from room by room/group id
+    .put(updateGroup) // updates group by room id
+    .delete (unassignGroup); // removes group from room by room/group id
 
 // exports router
 module.exports = router;
