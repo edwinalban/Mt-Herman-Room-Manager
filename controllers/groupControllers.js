@@ -30,8 +30,8 @@ module.exports = {
                     .json({ message: 'No room with that ID' });
             }
 
-            const group = room.group.id({_id: req.params.groupId});
-            
+            const group = room.group.id({ _id: req.params.groupId });
+
             group.set(req.body);
             room.save();
             res.json({ message: 'Group updated' });

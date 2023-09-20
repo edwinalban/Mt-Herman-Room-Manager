@@ -3,7 +3,8 @@ const { Room, Employee } = require('../models');
 module.exports = {
     async getRooms(req, res) {
         try {
-            const rooms = await Room.find();
+            const rooms = await Room.find()
+                .populate('updatedBy', 'username');
             res.json(rooms);
         } catch (e) {
             res.status(500)
@@ -39,7 +40,14 @@ module.exports = {
             }
 
             room.lastUpdated = Date.now(); // Make log of updates/who updated?
-            room.set(req.body);
+
+            room.set(
+                {
+                    status: req.body.status,
+                    notes: req.body.notes,
+                    updatedBy: req.body.employeeId,
+                }
+            );
             room.save();
             res.json({ message: "Room status updated" });
         } catch (e) {
