@@ -23,13 +23,16 @@ module.exports = {
     async updateGroup(req, res) {
         try {
             const room = await Room.findOne({ _id: req.params.roomId });
+            console.log(room.group);
 
             if (!room) {
                 return res.status(404)
                     .json({ message: 'No room with that ID' });
             }
+
+            const group = room.group.id({_id: req.params.groupId});
             
-            room.group[0].set(req.body)
+            group.set(req.body);
             room.save();
             res.json({ message: 'Group updated' });
         } catch (e) {
