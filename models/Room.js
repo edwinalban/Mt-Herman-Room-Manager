@@ -2,6 +2,11 @@ const { Schema, model } = require('mongoose');
 const formatDate = require('../utils/formatDate');
 const groupSchema = require('./Group');
 
+// boolean dirty/clean
+// boolean inspected
+// next cleaning date
+// schedules model, roomid, groupid, employees assigned, date
+
 const RoomSchema = new Schema(
     {
         building: {

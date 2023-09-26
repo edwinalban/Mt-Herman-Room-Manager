@@ -2,6 +2,8 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
+// query for rooms based on dirty status/employees assigned/next cleaning date
+
 const EmployeeSchema = new Schema(
     {
         username: {
