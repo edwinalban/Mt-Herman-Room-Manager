@@ -43,9 +43,6 @@ const RoomSchema = new Schema(
             type: Boolean,
             default: false,
         },
-        amenities: {
-            type: String,
-        },
         notes: {
             type: String,
         },
@@ -66,7 +63,12 @@ const RoomSchema = new Schema(
             type: Boolean,
             required: true,
         },
-        group: [groupSchema],
+        group: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'group',
+            }
+        ],
     },
     {
         toJSON: {

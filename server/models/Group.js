@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const formatDate = require('../utils/formatDate');
 
 const groupSchema = new Schema(
@@ -30,21 +30,9 @@ const groupSchema = new Schema(
             type: Boolean,
             default: true,
         },
-        building: {
-            type: String,
-            required: true,
-        },
-        floor: {
-            type: String,
-            required: true,
-        },
-        roomNumber: {
-            type: String,
-            required: true,
-        },
-        ada: {
-            type: Boolean,
-            required: true,
+        assignedRoom: {
+            type: Schema.Types.ObjectId,
+            ref: 'room'
         },
         amenities: {
             type: String,
@@ -58,4 +46,6 @@ const groupSchema = new Schema(
     },
 );
 
-module.exports = groupSchema;
+const Group = model('group', groupSchema)
+
+module.exports = Group;
