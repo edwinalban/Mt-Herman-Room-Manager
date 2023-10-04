@@ -27,9 +27,18 @@ const RoomSchema = new Schema(
                 ref: "employee",
             },
         ],
-        status: {
-            type: String,
-            required: true,
+        dirty: {
+            type: Boolean,
+        },
+        clean: {
+            type: Boolean,
+        },
+        inspected: {
+            type: Boolean,
+        },
+        nextCleaningDate: {
+            type: Date,
+            get: (date) => (formatDate(date)),
         },
         midweekFluff: {
             type: Boolean,
