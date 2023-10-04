@@ -27,7 +27,7 @@ const EmployeeSchema = new Schema(
                 ref: "room"
             }
         ],
-    }
+    },
 );
 
 EmployeeSchema.pre('save', async function (next) {

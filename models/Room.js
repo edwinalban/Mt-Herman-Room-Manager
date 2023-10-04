@@ -2,11 +2,6 @@ const { Schema, model } = require('mongoose');
 const formatDate = require('../utils/formatDate');
 const groupSchema = require('./Group');
 
-// boolean dirty/clean
-// boolean inspected
-// next cleaning date
-// schedules model, roomid, groupid, employees assigned, date
-
 const RoomSchema = new Schema(
     {
         building: {
@@ -24,7 +19,7 @@ const RoomSchema = new Schema(
         assignedTo: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "employee",
+                ref: 'employee',
             },
         ],
         dirty: {
@@ -65,7 +60,7 @@ const RoomSchema = new Schema(
         },
         updatedBy: {
             type: Schema.Types.ObjectId,
-            ref: "employee",
+            ref: 'employee',
         },
         ada: {
             type: Boolean,
