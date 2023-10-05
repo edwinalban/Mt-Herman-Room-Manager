@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const formatDate = require('../utils/formatDate');
-const groupSchema = require('./Group');
+const Group = require('./Group');
 
 const RoomSchema = new Schema(
     {
