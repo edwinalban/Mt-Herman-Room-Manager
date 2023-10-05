@@ -55,13 +55,13 @@ const typeDefs = gql`
 
     type Query {
         me: Employee
-        getEmployees: [Employee]
-        getOneEmployee: Employee
-        getRooms: [Room]
-        getOneRoom: Room
-        getGroups: [Group]
-        getOneGroup: Group
-        getSchedule(date: String): Schedule
+        Employees: [Employee]
+        Employee(_id: ID!): Employee
+        Rooms: [Room]
+        Room(_id: ID!): Room
+        Groups: [Group]
+        Group(_id: ID!): Group
+        Schedule(date: String): Schedule
     }
 `
 module.exports = typeDefs;

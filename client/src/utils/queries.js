@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_ME = gql`
+export const ME = gql`
     {
         me {
             _id
@@ -10,9 +10,9 @@ export const GET_ME = gql`
     }
 `;
 
-export const GET_EMPLOYEES = gql`
+export const EMPLOYEES = gql`
     {
-        getEmployees {
+        Employees {
             _id
             username
             roomsAssigned
@@ -20,9 +20,9 @@ export const GET_EMPLOYEES = gql`
     }
 `;
 
-export const GET_EMPLOYEE = gql`
+export const EMPLOYEE = gql`
     {
-        getOneEmployee {
+        Employee {
             _id
             username
             roomsAssigned
@@ -30,9 +30,9 @@ export const GET_EMPLOYEE = gql`
     }
 `;
 
-export const GET_ROOMS = gql`
+export const ROOMS = gql`
     {
-        getRooms {
+        Rooms {
             _id
             building
             floor
@@ -54,9 +54,9 @@ export const GET_ROOMS = gql`
     }
 `;
 
-export const GET_ONE_ROOM = gql`
+export const ROOM = gql`
     {
-        getOneRoom {
+        Room {
             _id
             building
             floor
@@ -78,9 +78,9 @@ export const GET_ONE_ROOM = gql`
     }
 `;
 
-export const GET_GROUPS = gql`
+export const GROUPS = gql`
     {
-        getGroups {
+        Groups {
             name
             size
             arriving
@@ -93,9 +93,9 @@ export const GET_GROUPS = gql`
     }
 `;
 
-export const GET_ONE_GROUP = gql`
+export const GROUP = gql`
     {
-        getOneGroup {
+        Group {
             name
             size
             arriving
@@ -108,9 +108,9 @@ export const GET_ONE_GROUP = gql`
     }
 `;
 
-export const GET_SCHEDULE = gql`
-    query getSchedule($date: String) {
-        getSchedule(date: $date) {
+export const SCHEDULE = gql`
+    query Schedule($date: String) {
+        Schedule(date: $date) {
             room
             group
             assignedTo
