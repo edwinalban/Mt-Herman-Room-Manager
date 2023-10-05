@@ -1,5 +1,6 @@
 const Employee = require('./Employee');
 const Room = require('./Room');
-const groupSchema = require('./Group');
+const Group = require('./Group');
+const Schedule = require('./Schedule')
 
-module.exports = { Employee, Room, groupSchema };
+module.exports = { Employee, Room, Group, Schedule };
