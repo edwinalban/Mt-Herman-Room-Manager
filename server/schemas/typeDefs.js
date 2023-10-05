@@ -64,3 +64,4 @@ const typeDefs = gql`
         getSchedule(date: String): Schedule
     }
 `
+module.exports = typeDefs;
