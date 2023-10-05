@@ -63,5 +63,55 @@ const typeDefs = gql`
         Group(_id: ID!): Group
         Schedule(date: String): Schedule
     }
+
+    type Mutations {
+        addEmployee(
+            username: String!
+            password: String!
+            permissions: String!
+        ): Auth
+        updateEmployee(
+            username: String
+            password: String
+            permissions: String
+        ): Employee
+        deleteEmployee(_id: ID!): Employee
+        login(username: String!, password: String!): Auth
+        updateRoom(
+            _id: ID!
+            assignedTo: [Employee]
+            dirty: Boolean
+            clean: Boolean
+            inspected: Boolean
+            nextCleaningDate: String
+            midweekFluff: Boolean
+            weekendFluff: Boolean
+            notes: String
+            lastUpdated: String
+            updatedBy: Employee
+            group: [Group]
+        ): Room
+        addGroup(
+            name: String!
+            size: Int
+            arriving: String
+            departing: String
+            midweek: Boolean
+            weekend: Boolean
+            assignedRoom: Room
+            amenities: String
+        ): Group
+        updateGroup(
+            _id: ID
+            name: String!
+            size: Int
+            arriving: String
+            departing: String
+            midweek: Boolean
+            weekend: Boolean
+            assignedRoom: Room
+            amenities: String
+        ): Group
+    }
 `
 module.exports = typeDefs;
