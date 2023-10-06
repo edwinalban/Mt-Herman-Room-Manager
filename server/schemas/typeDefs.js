@@ -76,6 +76,7 @@ const typeDefs = gql`
             permissions: String!
         ): Auth
         updateEmployee(
+            _id: ID
             username: String
             password: String
             permissions: String
