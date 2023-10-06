@@ -56,16 +56,21 @@ const resolvers = {
         },
         updateEmployee: async (parent, { _id, username, password, permissions }) => {
             const employee = await Employee.findOneAndUpdate(
-                { _id: _id},
-                { $set: {
-                    username: username,
-                    password: password,
-                    permissions: permissions,
-                }},
-                {new: true}
-                );
-            
+                { _id: _id },
+                {
+                    $set: {
+                        username: username,
+                        password: password,
+                        permissions: permissions,
+                    }
+                },
+                { new: true }
+            );
+
             return employee;
+        },
+        deleteEmployee: async (parent, { _id }) => {
+            return await Employee.findByIdAndDelete(_id) //need to add way to remove employee id from Room/Schedule when deleted
         },
         login: async (parent, { username, password }) => {
             const employee = await Employee.findOne({ username });
@@ -83,6 +88,40 @@ const resolvers = {
             const token = signToken(employee);
 
             return { token, employee };
+        },
+        updateRoom: async (parent, {
+            _id,
+            assignedTo,
+            clean,
+            inspected,
+            nextCleaningDate,
+            midweekFluff,
+            weekendFluff,
+            notes,
+            lastUpdated,
+            updatedBy,
+            group
+        }) => {
+            const room = await Room.findOneAndUpdate(
+                { _id: _id },
+                {
+                    $set: {
+                        assignedTo: assignedTo,
+                        clean: clean,
+                        inspected: inspected,
+                        nextCleaningDate: nextCleaningDate,
+                        midweekFluff: midweekFluff,
+                        weekendFluff: weekendFluff,
+                        notes: notes,
+                        lastUpdated: lastUpdated,
+                        updatedBy: updatedBy,
+                        group: group
+                    }
+                },
+                { new: true }
+            );
+
+            return room;
         },
     }
 };

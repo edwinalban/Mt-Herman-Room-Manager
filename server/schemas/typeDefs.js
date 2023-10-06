@@ -84,7 +84,7 @@ const typeDefs = gql`
         deleteEmployee(_id: ID!): Employee
         login(username: String!, password: String!): Auth
         updateRoom(
-            _id: ID!
+            _id: ID
             assignedTo: [AssignedToInput]
             clean: Boolean
             inspected: Boolean
@@ -93,8 +93,8 @@ const typeDefs = gql`
             weekendFluff: Boolean
             notes: String
             lastUpdated: String
-            updatedBy: ID!
-            group: ID!
+            updatedBy: ID
+            group: ID
         ): Room
         addGroup(
             name: String!
