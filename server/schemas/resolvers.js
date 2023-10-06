@@ -123,7 +123,32 @@ const resolvers = {
 
             return room;
         },
-    }
+        addGroup: async (parent, {
+            name,
+            size,
+            arriving,
+            departing,
+            midweek,
+            weekend,
+            currentRoom,
+            amenities
+        }) => {
+            const group = await Group.create(
+                {
+                    name,
+                    size,
+                    arriving,
+                    departing,
+                    midweek,
+                    weekend,
+                    currentRoom,
+                    amenities
+                }
+            );
+
+            return group;
+        },
+    },
 };
 
 module.exports = resolvers;
