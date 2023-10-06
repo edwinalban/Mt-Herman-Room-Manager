@@ -7,7 +7,6 @@ const typeDefs = gql`
         floor: Int!
         roomNumber: String!
         assignedTo: [Employee]
-        dirty: Boolean
         clean: Boolean
         inspected: Boolean
         nextCleaningDate: String
@@ -37,13 +36,14 @@ const typeDefs = gql`
         departing: String
         midweek: Boolean
         weekend: Boolean
-        assignedRoom: Room
+        currentRoom: Room
+        previousRoom: [Room]
         amenities: String
     }
 
     type Schedule {
-        room: [Room]
-        group: [Group]
+        room: Room
+        group: Group
         assignedTo: [Employee]
         date: String
     }
@@ -64,7 +64,12 @@ const typeDefs = gql`
         Schedule(date: String): Schedule
     }
 
-    type Mutations {
+    input AssignedToInput {
+        _id: ID
+        username: String!
+    }
+
+    type Mutation {
         addEmployee(
             username: String!
             password: String!
@@ -79,8 +84,7 @@ const typeDefs = gql`
         login(username: String!, password: String!): Auth
         updateRoom(
             _id: ID!
-            assignedTo: [Employee]
-            dirty: Boolean
+            assignedTo: [AssignedToInput]
             clean: Boolean
             inspected: Boolean
             nextCleaningDate: String
@@ -88,8 +92,8 @@ const typeDefs = gql`
             weekendFluff: Boolean
             notes: String
             lastUpdated: String
-            updatedBy: Employee
-            group: [Group]
+            updatedBy: ID!
+            group: ID!
         ): Room
         addGroup(
             name: String!
@@ -98,7 +102,7 @@ const typeDefs = gql`
             departing: String
             midweek: Boolean
             weekend: Boolean
-            assignedRoom: Room
+            currentRoom: ID!
             amenities: String
         ): Group
         updateGroup(
@@ -109,7 +113,8 @@ const typeDefs = gql`
             departing: String
             midweek: Boolean
             weekend: Boolean
-            assignedRoom: Room
+            currentRoom: ID!
+            previousRoom: ID!
             amenities: String
         ): Group
     }

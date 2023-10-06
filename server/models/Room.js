@@ -22,9 +22,6 @@ const RoomSchema = new Schema(
                 ref: 'employee',
             },
         ],
-        dirty: {
-            type: Boolean,
-        },
         clean: {
             type: Boolean,
         },

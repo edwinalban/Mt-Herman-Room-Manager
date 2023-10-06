@@ -30,10 +30,16 @@ const groupSchema = new Schema(
             type: Boolean,
             default: true,
         },
-        assignedRoom: {
+        currentRoom: {
             type: Schema.Types.ObjectId,
             ref: 'room'
         },
+        previousRoom: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'room'
+            }
+        ],
         amenities: {
             type: String,
         },

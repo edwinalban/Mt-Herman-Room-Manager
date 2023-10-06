@@ -3,18 +3,16 @@ const formatDate = require('../utils/formatDate');
 
 const ScheduleSchema = new Schema(
     {
-        room: [
+        room:
             {
                 type: Schema.Types.ObjectId,
                 ref: 'room',
-            }
-        ],
-        group: [
+            },
+        group:
             {
                 type: Schema.Types.ObjectId,
                 ref: 'group',
-            }
-        ],
+            },
         assignedTo: [
             {
                 type: Schema.Types.ObjectId,

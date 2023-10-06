@@ -42,13 +42,36 @@ const resolvers = {
         Group: async (parent, { _id }) => {
             return await Group.findById(_id);
         },
-        Schedule: async(parent, { date }) => {
+        Schedule: async (parent, { date }) => {
             return await Schedule.findOne(date)
-                .populate('room')
-                .populate('group')
-                .populate('assignedTo')
+                .populate(['room', 'group', 'assignedTo'])
         },
     },
+    Mutation: {
+        addEmployee: async (parent, { username, password, permissions }) => {
+            const employee = await Employee.create({ username, password, permissions });
+            const token = signToken(employee);
+
+            return { token, employee };
+        },
+        login: async (parent, { username, password }) => {
+            const employee = await Employee.findOne({ username });
+
+            if (!employee) {
+                throw new AuthenticationError('Incorrect username');
+            }
+
+            const correctPW = await employee.validatePassword(password);
+
+            if (!correctPW) {
+                throw new AuthenticationError('Incorrect credentials')
+            }
+
+            const token = signToken(employee);
+
+            return { token, employee };
+        },
+    }
 };
 
 module.exports = resolvers;
