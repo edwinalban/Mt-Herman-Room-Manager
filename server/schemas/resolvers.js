@@ -54,6 +54,19 @@ const resolvers = {
 
             return { token, employee };
         },
+        updateEmployee: async (parent, { _id, username, password, permissions }) => {
+            const employee = await Employee.findOneAndUpdate(
+                { _id: _id},
+                { $set: {
+                    username: username,
+                    password: password,
+                    permissions: permissions,
+                }},
+                {new: true}
+                );
+            
+            return employee;
+        },
         login: async (parent, { username, password }) => {
             const employee = await Employee.findOne({ username });
 
