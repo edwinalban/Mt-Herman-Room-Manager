@@ -42,7 +42,7 @@ const resolvers = {
         Group: async (parent, { _id }) => {
             return await Group.findById(_id);
         },
-        Schedule: async (parent, date ) => {
+        Schedule: async (parent, date) => {
             return await Schedule.findOne(date)
                 .populate(['room', 'group', 'assignedTo'])
         },
@@ -137,7 +137,7 @@ const resolvers = {
                     _id: assignedTo[0]._id,
                     username: employee.username,
                 };
-                
+
                 const room = await Room.findByIdAndUpdate(
                     _id,
                     {
@@ -146,7 +146,8 @@ const resolvers = {
                         },
                     },
                     { new: true },
-                );
+                )
+                    .populate('assignedTo');
 
                 if (!room) {
                     throw new Error('Room not found');
@@ -157,7 +158,7 @@ const resolvers = {
                     assignedTo: assignedEmployee._id,
                     date: new Date(), // You can set the date to the current date or any other relevant date.
                 });
-        
+
                 await schedule.save();
 
                 await Employee.findByIdAndUpdate(
@@ -168,7 +169,7 @@ const resolvers = {
                         },
                     }
                 );
-
+                console.log(room);
                 return room;
             } catch (error) {
                 console.error('Error assigning room:', error);
@@ -228,10 +229,10 @@ const resolvers = {
                     }
                 },
                 { new: true }
-            );
-
+            )
+                .populate('currentRoom');
+                console.log(group);
             return group
-                .populate(currentRoom); // cannot populate path because it is not in schema?
         },
         addSchedule: async (parent, {
             room,
@@ -247,8 +248,11 @@ const resolvers = {
                     date
                 }
             );
-            console.log(schedule);
-            return schedule; // returning null values
+
+            const newSchedule = await Schedule.findById(schedule._id)
+            .populate(['room', 'group', 'assignedTo']);
+
+            return newSchedule;
         }
     },
 };
