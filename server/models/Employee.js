@@ -21,10 +21,10 @@ const EmployeeSchema = new Schema(
             type: String,
             required: true,
         },
-        roomsAssigned: [ // update to schedules assigned
+        schedule: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "room"
+                ref: "schedule"
             }
         ],
     },
