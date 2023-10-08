@@ -13,19 +13,19 @@ const typeDefs = gql`
         midweekFluff: Boolean
         weekendFluff: Boolean
         notes: String
-        masterDeluxe: Boolean!
+        masterDeluxe: Boolean
         lastUpdated: String
         updatedBy: Employee
-        ada: Boolean!
+        ada: Boolean
         group: [Group]
     }
 
     type Employee {
         _id: ID
-        username: String!
+        username: String
         password: String!
         permissions: String!
-        schedule: [schedule]
+        schedule: [Schedule]
     }
 
     type Group {
@@ -66,7 +66,7 @@ const typeDefs = gql`
 
     input AssignedToInput {
         _id: ID
-        username: String!
+        username: String
     }
 
     type Mutation {
@@ -81,18 +81,20 @@ const typeDefs = gql`
         ): Employee
         deleteEmployee(_id: ID!): Employee
         login(username: String!, password: String!): Auth
-        updateRoom(
+        employeeUpdateRoom(
             _id: ID
-            assignedTo: [AssignedToInput]
             clean: Boolean
+            notes: String
+        ): Room
+        adminUpdateRoom(
+            _id: ID
             inspected: Boolean
             nextCleaningDate: String
-            midweekFluff: Boolean
-            weekendFluff: Boolean
             notes: String
-            lastUpdated: String
-            updatedBy: ID
-            group: ID
+        ): Room
+        assignRoom(
+            _id: ID
+            assignedTo: [AssignedToInput]
         ): Room
         addGroup(
             name: String!
@@ -113,9 +115,15 @@ const typeDefs = gql`
             midweek: Boolean
             weekend: Boolean
             currentRoom: ID!
-            previousRoom: ID!
+            previousRoom: ID
             amenities: String
         ): Group
+        addSchedule(
+            room: ID
+            group: ID
+            assignedTo: [AssignedToInput]
+            date: String
+        ): Schedule
     }
 `
 module.exports = typeDefs;

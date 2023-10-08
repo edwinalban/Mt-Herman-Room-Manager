@@ -45,7 +45,6 @@ const RoomSchema = new Schema(
         },
         masterDeluxe: {
             type: Boolean,
-            required: true,
         },
         lastUpdated: {
             type: Date,
@@ -58,7 +57,6 @@ const RoomSchema = new Schema(
         },
         ada: {
             type: Boolean,
-            required: true,
         },
         group: [
             {
