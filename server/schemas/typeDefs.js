@@ -22,7 +22,7 @@ const typeDefs = gql`
 
     type Employee {
         _id: ID
-        username: String
+        username: String!
         password: String!
         permissions: String!
         schedule: [Schedule]
