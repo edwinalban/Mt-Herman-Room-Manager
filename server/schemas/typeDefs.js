@@ -25,7 +25,7 @@ const typeDefs = gql`
         username: String!
         password: String!
         permissions: String!
-        roomsAssigned: [Room]
+        schedule: [schedule]
     }
 
     type Group {
