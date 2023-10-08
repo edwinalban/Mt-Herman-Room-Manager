@@ -54,13 +54,11 @@ const resolvers = {
 
             return { token, employee };
         },
-        updateEmployee: async (parent, { _id, username, password, permissions }) => {
+        updateEmployeePermissions: async (parent, { _id, permissions }) => {
             const employee = await Employee.findOneAndUpdate(
                 { _id: _id },
                 {
                     $set: {
-                        username: username,
-                        password: password,
                         permissions: permissions,
                     }
                 },

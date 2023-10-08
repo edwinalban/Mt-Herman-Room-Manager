@@ -75,10 +75,8 @@ const typeDefs = gql`
             password: String!
             permissions: String!
         ): Auth
-        updateEmployee(
+        updateEmployeePermissions(
             _id: ID
-            username: String
-            password: String
             permissions: String
         ): Employee
         deleteEmployee(_id: ID!): Employee
