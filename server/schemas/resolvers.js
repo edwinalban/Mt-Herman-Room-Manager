@@ -21,7 +21,7 @@ const resolvers = {
         },
         Employee: async (parent, { _id }) => {
             return await Employee.findById(_id)
-                .populate('roomsAssigned');
+                .populate('schedule');
         },
         Rooms: async () => {
             const rooms = await Room.find();
@@ -42,7 +42,7 @@ const resolvers = {
         Group: async (parent, { _id }) => {
             return await Group.findById(_id);
         },
-        Schedule: async (parent, { date }) => {
+        Schedule: async (parent, date ) => {
             return await Schedule.findOne(date)
                 .populate(['room', 'group', 'assignedTo'])
         },
@@ -87,39 +87,93 @@ const resolvers = {
 
             return { token, employee };
         },
-        updateRoom: async (parent, {
+        employeeUpdateRoom: async (parent, {
             _id,
-            assignedTo,
             clean,
-            inspected,
-            nextCleaningDate,
-            midweekFluff,
-            weekendFluff,
             notes,
-            lastUpdated,
-            updatedBy,
-            group
         }) => {
             const room = await Room.findOneAndUpdate(
                 { _id: _id },
                 {
                     $set: {
-                        assignedTo: assignedTo,
                         clean: clean,
+                        notes: notes,
+                    },
+                },
+                { new: true }
+            );
+
+            return room;
+        },
+        adminUpdateRoom: async (parent, {
+            _id,
+            inspected,
+            nextCleaningDate,
+            notes,
+        }) => {
+            const room = await Room.findOneAndUpdate(
+                { _id: _id },
+                {
+                    $set: {
                         inspected: inspected,
                         nextCleaningDate: nextCleaningDate,
-                        midweekFluff: midweekFluff,
-                        weekendFluff: weekendFluff,
                         notes: notes,
-                        lastUpdated: lastUpdated,
-                        updatedBy: updatedBy,
-                        group: group
                     }
                 },
                 { new: true }
             );
 
             return room;
+        },
+        assignRoom: async (parent, { _id, assignedTo }) => {
+            try {
+                const employee = await Employee.findById(assignedTo[0]._id);
+
+                if (!employee) {
+                    throw new Error('Employee not found');
+                }
+
+                const assignedEmployee = {
+                    _id: assignedTo[0]._id,
+                    username: employee.username,
+                };
+                
+                const room = await Room.findByIdAndUpdate(
+                    _id,
+                    {
+                        $push: {
+                            assignedTo: assignedEmployee,
+                        },
+                    },
+                    { new: true },
+                );
+
+                if (!room) {
+                    throw new Error('Room not found');
+                }
+
+                const schedule = new Schedule({
+                    room: room._id,
+                    assignedTo: assignedEmployee._id,
+                    date: new Date(), // You can set the date to the current date or any other relevant date.
+                });
+        
+                await schedule.save();
+
+                await Employee.findByIdAndUpdate(
+                    assignedTo[0]._id,
+                    {
+                        $addToSet: {
+                            schedule: schedule._id,
+                        },
+                    }
+                );
+
+                return room;
+            } catch (error) {
+                console.error('Error assigning room:', error);
+                throw error;
+            }
         },
         addGroup: async (parent, {
             name,
@@ -146,6 +200,56 @@ const resolvers = {
 
             return group;
         },
+        updateGroup: async (parent, {
+            _id,
+            name,
+            size,
+            arriving,
+            departing,
+            midweek,
+            weekend,
+            currentRoom,
+            previousRoom,
+            amenities
+        }) => {
+            const group = await Group.findByIdAndUpdate(
+                { _id: _id },
+                {
+                    $set: {
+                        name: name,
+                        size: size,
+                        arriving: arriving,
+                        departing: departing,
+                        midweek: midweek,
+                        weekend: weekend,
+                        currentRoom: currentRoom,
+                        previousRoom: previousRoom,
+                        amenities: amenities
+                    }
+                },
+                { new: true }
+            );
+
+            return group
+                .populate(currentRoom); // cannot populate path because it is not in schema?
+        },
+        addSchedule: async (parent, {
+            room,
+            group,
+            assignedTo,
+            date
+        }) => {
+            const schedule = await Schedule.create(
+                {
+                    room,
+                    group,
+                    assignedTo,
+                    date
+                }
+            );
+            console.log(schedule);
+            return schedule; // returning null values
+        }
     },
 };
 
