@@ -42,9 +42,20 @@ const resolvers = {
         Group: async (parent, { _id }) => {
             return await Group.findById(_id);
         },
-        Schedule: async (parent, date) => {
-            return await Schedule.findOne(date)
+        Schedules: async (parent, { date }) => {
+            return await Schedule.find({ date })
                 .populate(['room', 'group', 'assignedTo'])
+        },
+        SchedulesByDateRange: async (parent, { startDate, endDate }) => {
+            const schedules = await Schedule.find({
+                date: {
+                    $gte: startDate,
+                    $lte: endDate
+                }
+            })
+                .populate(['room', 'group', 'assignedTo', 'date'])
+
+            return schedules;
         },
     },
     Mutation: {
@@ -231,7 +242,7 @@ const resolvers = {
                 { new: true }
             )
                 .populate('currentRoom');
-                console.log(group);
+            console.log(group);
             return group
         },
         addSchedule: async (parent, {
@@ -250,7 +261,7 @@ const resolvers = {
             );
 
             const newSchedule = await Schedule.findById(schedule._id)
-            .populate(['room', 'group', 'assignedTo']);
+                .populate(['room', 'group', 'assignedTo']);
 
             return newSchedule;
         }
