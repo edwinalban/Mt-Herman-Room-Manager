@@ -25,7 +25,7 @@ const typeDefs = gql`
         username: String!
         password: String!
         permissions: String!
-        schedule: [Schedule]
+        schedules: [Schedule]
     }
 
     type Group {

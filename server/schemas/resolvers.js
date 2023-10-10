@@ -15,36 +15,72 @@ const resolvers = {
             throw new AuthenticationError('You are not logged in');
         },
         Employees: async () => {
-            const employees = await Employee.find();
+            const employees = await Employee.find()
+            .populate('schedules')
+            .populate(
+                {
+                    path: 'schedules',
+                    populate: 'room'
+                }
+            );
 
             return employees;
         },
         Employee: async (parent, { _id }) => {
             return await Employee.findById(_id)
-                .populate('schedule');
+                .populate('schedules')
+                .populate(
+                    {
+                        path: 'schedules',
+                        populate: 'room'
+                    }
+                );
         },
         Rooms: async () => {
-            const rooms = await Room.find();
+            const rooms = await Room.find()
+                .populate('assignedTo');
 
             return rooms;
         },
         Room: async (parent, { _id }) => {
             return await Room.findById(_id)
-                .populate('assignedTo')
-                .populate('updatedBy')
-                .populate('group');
+                .populate(
+                    [
+                        'assignedTo',
+                        'updatedBy',
+                        'group'
+                    ]
+                );
         },
         Groups: async () => {
-            const groups = await Group.find();
+            const groups = await Group.find()
+                .populate(
+                    [
+                        'currentRoom',
+                        'previousRoom'
+                    ]
+                );
 
             return groups;
         },
         Group: async (parent, { _id }) => {
-            return await Group.findById(_id);
+            return await Group.findById(_id)
+                .populate(
+                    [
+                        'currentRoom',
+                        'previousRoom'
+                    ]
+                );
         },
         Schedules: async (parent, { date }) => {
             return await Schedule.find({ date })
-                .populate(['room', 'group', 'assignedTo'])
+                .populate(
+                    [
+                        'room',
+                        'group',
+                        'assignedTo'
+                    ]
+                );
         },
         SchedulesByDateRange: async (parent, { startDate, endDate }) => {
             const schedules = await Schedule.find({
@@ -53,7 +89,14 @@ const resolvers = {
                     $lte: endDate
                 }
             })
-                .populate(['room', 'group', 'assignedTo', 'date'])
+                .populate(
+                    [
+                        'room',
+                        'group',
+                        'assignedTo',
+                        'date'
+                    ]
+                );
 
             return schedules;
         },
@@ -176,7 +219,7 @@ const resolvers = {
                     assignedTo[0]._id,
                     {
                         $addToSet: {
-                            schedule: schedule._id,
+                            schedules: schedule._id,
                         },
                     }
                 );
@@ -241,7 +284,12 @@ const resolvers = {
                 },
                 { new: true }
             )
-                .populate(['currentRoom', 'previousRoom']);
+                .populate(
+                    [
+                        'currentRoom',
+                        'previousRoom'
+                    ]
+                );
 
             return group
         },
@@ -261,7 +309,13 @@ const resolvers = {
             );
 
             const newSchedule = await Schedule.findById(schedule._id)
-                .populate(['room', 'group', 'assignedTo']);
+                .populate(
+                    [
+                        'room',
+                        'group',
+                        'assignedTo'
+                    ]
+                );
 
             return newSchedule;
         }
