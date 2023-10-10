@@ -180,7 +180,7 @@ const resolvers = {
                         },
                     }
                 );
-                console.log(room);
+
                 return room;
             } catch (error) {
                 console.error('Error assigning room:', error);
@@ -241,8 +241,8 @@ const resolvers = {
                 },
                 { new: true }
             )
-                .populate('currentRoom');
-            console.log(group);
+                .populate(['currentRoom', 'previousRoom']);
+
             return group
         },
         addSchedule: async (parent, {
