@@ -61,7 +61,8 @@ const typeDefs = gql`
         Room(_id: ID!): Room
         Groups: [Group]
         Group(_id: ID!): Group
-        Schedule(date: String): Schedule
+        Schedules(date: String): [Schedule]
+        SchedulesByDateRange(startDate: String!, endDate: String!): [Schedule] 
     }
 
     input AssignedToInput {
