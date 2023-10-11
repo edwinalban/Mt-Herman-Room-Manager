@@ -16,13 +16,13 @@ const resolvers = {
         },
         Employees: async () => {
             const employees = await Employee.find()
-            .populate('schedules')
-            .populate(
-                {
-                    path: 'schedules',
-                    populate: 'room'
-                }
-            );
+                .populate('schedules')
+                .populate(
+                    {
+                        path: 'schedules',
+                        populate: 'room'
+                    }
+                );
 
             return employees;
         },
@@ -145,6 +145,7 @@ const resolvers = {
             _id,
             clean,
             notes,
+            employeeId
         }) => {
             const room = await Room.findOneAndUpdate(
                 { _id: _id },
@@ -152,10 +153,13 @@ const resolvers = {
                     $set: {
                         clean: clean,
                         notes: notes,
+                        lastUpdated: new Date(),
+                        updatedBy: employeeId
                     },
                 },
                 { new: true }
-            );
+            )
+                .populate('updatedBy');
 
             return room;
         },
@@ -164,6 +168,7 @@ const resolvers = {
             inspected,
             nextCleaningDate,
             notes,
+            employeeId
         }) => {
             const room = await Room.findOneAndUpdate(
                 { _id: _id },
@@ -172,10 +177,13 @@ const resolvers = {
                         inspected: inspected,
                         nextCleaningDate: nextCleaningDate,
                         notes: notes,
+                        lastUpdated: new Date(),
+                        employeeId: employeeId
                     }
                 },
                 { new: true }
-            );
+            )
+                .populate('updatedBy');
 
             return room;
         },
@@ -253,7 +261,25 @@ const resolvers = {
                 }
             );
 
-            return group;
+            const room = await Room.findByIdAndUpdate(
+                { _id: currentRoom },
+                {
+                    $push: {
+                        group: group._id
+                    }
+                },
+                { new: true }
+            );
+
+            const newGroup = await Group.findById(group._id)
+                .populate(
+                    [
+                        'currentRoom',
+                        'previousRoom'
+                    ]
+                );
+
+            return newGroup;
         },
         updateGroup: async (parent, {
             _id,
@@ -268,7 +294,7 @@ const resolvers = {
             amenities
         }) => {
             const group = await Group.findByIdAndUpdate(
-                { _id: _id },
+                _id,
                 {
                     $set: {
                         name: name,

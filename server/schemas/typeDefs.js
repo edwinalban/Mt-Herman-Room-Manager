@@ -86,12 +86,14 @@ const typeDefs = gql`
             _id: ID
             clean: Boolean
             notes: String
+            employeeId: ID
         ): Room
         adminUpdateRoom(
             _id: ID
             inspected: Boolean
             nextCleaningDate: String
             notes: String
+            employeeId: ID
         ): Room
         assignRoom(
             _id: ID
@@ -116,7 +118,7 @@ const typeDefs = gql`
             midweek: Boolean
             weekend: Boolean
             currentRoom: ID!
-            previousRoom: ID
+            previousRoom: [ID]
             amenities: String
         ): Group
         addSchedule(
