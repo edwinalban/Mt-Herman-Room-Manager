@@ -40,6 +40,7 @@ export const LOGIN = gql`
                 permissions
                 username
             }
+            token
         }
     }
 `;

@@ -9,9 +9,9 @@ import {
 export default function Navbar() {
     const links = ['Home', 'Employees', 'Groups', 'Rooms', 'Schedules']
     return (
-        <Breadcrumb className='nav' p='8'>
-            {links.map((link) => (
-                <BreadcrumbItem>
+        <Breadcrumb className='nav'>
+            {links.map((link, index) => (
+                <BreadcrumbItem key={index}>
                     <BreadcrumbLink
                         className='nav-a'
                         href={'#' + link.toLowerCase()}
