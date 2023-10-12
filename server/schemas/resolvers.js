@@ -138,7 +138,7 @@ const resolvers = {
             }
 
             const token = signToken(employee);
-
+            console.log('server', token);
             return { token, employee };
         },
         employeeUpdateRoom: async (parent, {

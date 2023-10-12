@@ -27,3 +27,26 @@
     opacity: .8;
     color: var(--grey);
 }
+
+.login-form {
+    display: flex;
+    justify-content: center;
+}
+
+#login-name {
+    font-size: x-large;
+}
+
+#login-password {
+    font-size: x-large;
+}
+
+.login-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* #login-btn {
+
+} */
