@@ -4,6 +4,7 @@ export const ME = gql`
     query Me {
         me {
             username
+            permissions
             schedules {
                 date
                 room {

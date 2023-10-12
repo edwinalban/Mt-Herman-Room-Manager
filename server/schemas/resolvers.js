@@ -7,7 +7,13 @@ const resolvers = {
         me: async (parent, args, context) => {
             if (context.employee) {
                 const employee = await Employee.findOne({ _id: context.empoloyee._id })
-                    .populate('roomsAssigned');
+                .populate('schedules')
+                .populate(
+                    {
+                        path: 'schedules',
+                        populate: 'room'
+                    }
+                );
 
                 return employee
             }
