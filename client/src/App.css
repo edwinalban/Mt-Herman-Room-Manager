@@ -12,7 +12,8 @@
 
 .nav {
     background-color: var(--black);
-    color: var(--grey)
+    color: var(--grey);
+    padding: 16px;    
 }
 
 .nav-a {
@@ -24,4 +25,5 @@
 
 .nav-a:hover {
     opacity: .8;
+    color: var(--grey);
 }
