@@ -1,11 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import './App.css';
-import HookForm from './components/LoginForm';
-import Navbar from './components/Navbar';
-import LoginForm from './components/LoginForm';
+import AddEmployeeForm from './components/SignupForm';
 
 
 const httpLink = createHttpLink({
@@ -32,7 +30,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <LoginForm />
+      <AddEmployeeForm />
     </ApolloProvider>
   );
 }
