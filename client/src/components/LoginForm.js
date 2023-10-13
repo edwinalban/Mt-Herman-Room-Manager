@@ -11,7 +11,7 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 export default function LoginForm() {
-    const [login, { error }] = useMutation(LOGIN);
+    const [login] = useMutation(LOGIN);
 
     const {
         handleSubmit,
@@ -39,9 +39,9 @@ export default function LoginForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='login-form' >
+            <div className='form-wrapper' >
                 <FormControl isInvalid={errors.name}>
-                    <FormLabel id='login-name' htmlFor='name'>Username</FormLabel>
+                    <FormLabel className='form-name' id='login-name' htmlFor='name'>Username</FormLabel>
                     <Input
                         id='username'
                         placeholder='name'
@@ -54,7 +54,7 @@ export default function LoginForm() {
                     </FormErrorMessage>
                     <br></br>
                     <br></br>
-                    <FormLabel id='login-password' htmlFor='password'>Password</FormLabel>
+                    <FormLabel id='form-password' htmlFor='password'>Password</FormLabel>
                     <Input
                         id='password'
                         placeholder='password'
@@ -67,7 +67,7 @@ export default function LoginForm() {
                     </FormErrorMessage>
                 </FormControl>
             </div>
-            <div className='login-btn-wrapper'>
+            <div className='btn-wrapper'>
                 <Button id='login-btn' isLoading={isSubmitting} type='submit'>
                     Submit
                 </Button>

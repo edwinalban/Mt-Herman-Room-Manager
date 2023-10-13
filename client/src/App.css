@@ -28,25 +28,26 @@
     color: var(--grey);
 }
 
-.login-form {
+.form-wrapper {
     display: flex;
     justify-content: center;
 }
 
-#login-name {
+.form-name {
     font-size: x-large;
 }
 
-#login-password {
+.form-password {
     font-size: x-large;
 }
 
-.login-btn-wrapper {
+#permissions {
+    font-size: x-large;
+}
+
+.btn-wrapper {
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
 
-/* #login-btn {
-
-} */
