@@ -3,7 +3,8 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import './App.css';
-import AddEmployeeForm from './components/SignupForm';
+import AdminLanding from './pages/AdminLanding';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 
 const httpLink = createHttpLink({
@@ -30,7 +31,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <AddEmployeeForm />
+      <AdminLanding />
     </ApolloProvider>
   );
 }
