@@ -110,9 +110,9 @@ const resolvers = {
     Mutation: {
         addEmployee: async (parent, { username, password, permissions }) => {
             const employee = await Employee.create({ username, password, permissions });
-            // const token = signToken(employee);
+            const token = signToken(employee);
 
-            return { employee };
+            return { token, employee };
         },
         updateEmployeePermissions: async (parent, { _id, permissions }) => {
             const employee = await Employee.findOneAndUpdate(
