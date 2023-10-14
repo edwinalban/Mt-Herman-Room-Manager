@@ -7,7 +7,6 @@ import Auth from '../utils/auth';
 
 export default function Room() {
     const { data } = useQuery(ROOMS);
-    console.log(data?.Rooms);
 
     return (
         <>

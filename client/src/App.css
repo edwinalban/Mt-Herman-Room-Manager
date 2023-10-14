@@ -1,4 +1,4 @@
-* {
+/* * {
     font-family: sans-serif;
 }
 
@@ -8,6 +8,11 @@
     --yellow: #F8F32B;
     --grey: #8D99AE;
     --matte: #2B2D42;
+}
+
+.header {
+    background-color: var(--matte);
+    color: var(--grey);
 }
 
 .nav {
@@ -50,4 +55,4 @@
     justify-content: center;
     margin-top: 10px;
 }
-
+ */

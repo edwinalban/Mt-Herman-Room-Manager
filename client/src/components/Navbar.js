@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbSeparator,
-} from '@chakra-ui/react'
+import React from 'react';
+import { Nav, Navbar } from 'react-bootstrap';
 
 export default function Navbar() {
-    const links = ['Home', 'Employees', 'Groups', 'Rooms', 'Schedules']
-    return (
-        <Breadcrumb className='nav'>
-            {links.map((link, index) => (
-                <BreadcrumbItem key={index}>
-                    <BreadcrumbLink
-                        className='nav-a'
-                        href={'#' + link.toLowerCase()}
-                    >
-                        {link}
-                    </BreadcrumbLink>
-                </BreadcrumbItem>
+  const links = ['Home', 'Employees', 'Groups', 'Rooms', 'Schedules'];
 
-            ))}
-        </Breadcrumb>
-    );
-};
+  return (
+    <Navbar bg="light" expand="lg">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          {links.map((link, index) => (
+            <Nav.Link key={index} href={'#' + link.toLowerCase()} className="nav-a">
+              {link}
+            </Nav.Link>
+          ))}
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+}
