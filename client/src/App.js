@@ -1,13 +1,11 @@
 import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import './App.css';
-import AdminLanding from './pages/AdminLanding';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-import AddEmployeeForm from './components/SignupForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import SignupForm from './components/SignupForm';
-import Room from './pages/Rooms';
+import LoginForm from './components/LoginForm';
+import Header from '../src/components/Header';
 
 
 const httpLink = createHttpLink({
@@ -34,7 +32,13 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Room />
+      <Header />
+      <Router>
+        <Routes>
+          <Route path='/' element={<LoginForm />} />
+          <Route path='signup' element={<SignupForm />} />
+        </Routes>
+      </Router>
     </ApolloProvider>
   );
 }

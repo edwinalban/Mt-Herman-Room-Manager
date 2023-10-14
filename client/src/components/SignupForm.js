@@ -1,14 +1,7 @@
 import { useForm } from 'react-hook-form';
-import {
-    FormErrorMessage,
-    FormLabel,
-    FormControl,
-    Input,
-    Button,
-} from '@chakra-ui/react';
+import { Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { ADD_EMPLOYEE } from '../utils/mutations';
-import { Select } from '@chakra-ui/react';
 import Auth from '../utils/auth';
 
 export default function SignupForm() {
@@ -41,51 +34,43 @@ export default function SignupForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
             <div className='form-wrapper' >
-                <FormControl isInvalid={errors.name}>
+                <FormGroup isInvalid={errors.name}>
                     <FormLabel className='form-name' id='signup-name' htmlFor='name'>Username</FormLabel>
-                    <Input
+                    <FormControl
                         id='username'
                         placeholder='username'
                         {...register('username', {
                             required: 'This is required',
                         })}
                     />
-                    <FormErrorMessage>
+                    <Form.Text className='text-danger'>
                         {errors.username && errors.username.message}
-                    </FormErrorMessage>
+                    </Form.Text>
                     <br></br>
                     <br></br>
                     <FormLabel className='form-password' id='signup-password' htmlFor='password'>Password</FormLabel>
-                    <Input
+                    <FormControl
                         id='password'
                         placeholder='password'
                         {...register('password', {
                             required: 'This is required',
                         })}
                     />
-                    <FormErrorMessage>
+                    <Form.Text className='text-danger'>
                         {errors.password && errors.password.message}
-                    </FormErrorMessage>
+                    </Form.Text>
                     <br></br>
                     <br></br>
                     <FormLabel id='permissions' htmlFor='permissions'>Permissions</FormLabel>
-                    <Select placeholder='Select option'
-                        {...register('permissions', {
-                            required: 'This is required',
-                        })}>
-                        <option value='Admin'>Admin</option>
-                        <option value='Assistant'>Assistant</option>
-                        <option value='Employee'>Employee</option>
-                    </Select>
-                </FormControl>
+                </FormGroup>
             </div>
             <div className='btn-wrapper'>
                 <Button id='add-btn' isLoading={isSubmitting} type='submit'>
                     Submit
                 </Button>
             </div>
-        </form>
+        </Form>
     )
 };

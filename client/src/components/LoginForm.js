@@ -1,14 +1,9 @@
 import { useForm } from 'react-hook-form';
-import {
-    FormErrorMessage,
-    FormLabel,
-    FormControl,
-    Input,
-    Button,
-} from '@chakra-ui/react';
+import { Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 export default function LoginForm() {
     const [login] = useMutation(LOGIN);
@@ -38,40 +33,45 @@ export default function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='form-wrapper' >
-                <FormControl isInvalid={errors.name}>
-                    <FormLabel className='form-name' id='login-name' htmlFor='name'>Username</FormLabel>
-                    <Input
-                        id='username'
-                        placeholder='name'
-                        {...register('username', {
-                            required: 'This is required',
-                        })}
-                    />
-                    <FormErrorMessage>
-                        {errors.username && errors.username.message}
-                    </FormErrorMessage>
-                    <br></br>
-                    <br></br>
-                    <FormLabel id='form-password' htmlFor='password'>Password</FormLabel>
-                    <Input
-                        id='password'
-                        placeholder='password'
-                        {...register('password', {
-                            required: 'This is required',
-                        })}
-                    />
-                    <FormErrorMessage>
-                        {errors.password && errors.password.message}
-                    </FormErrorMessage>
-                </FormControl>
+            <div>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='mt-5 border rounded text-center p-5 mx-auto'>
+                        <FormGroup isInvalid={errors.name}>
+                            <FormLabel className='form-name' id='login-name' htmlFor='username'>Username</FormLabel>
+                            <FormControl
+                                id='username'
+                                placeholder='username'
+                                {...register('username', {
+                                    required: 'This is required',
+                                })}
+                            />
+                            <Form.Text className='text-danger'>
+                                {errors.username && errors.username.message}
+                            </Form.Text>
+                            <br></br>
+                            <br></br>
+                            <FormLabel className='form-password' id='login-password' htmlFor='password'>Password</FormLabel>
+                            <FormControl
+                                id='password'
+                                placeholder='password'
+                                {...register('password', {
+                                    required: 'This is required',
+                                })}
+                            />
+                            <Form.Text className='text-danger'>
+                                {errors.password && errors.password.message}
+                            </Form.Text>
+                        </FormGroup>
+                    </div>
+                    <div className='btn-wrapper'>
+                        <Button id='login-btn' isLoading={isSubmitting} type='submit'>
+                            Submit
+                        </Button>
+                    </div>
+                </Form>
+                <div className='text-center mt-3'>
+                    <Link to='/signup'>Don't have an account? Sign up here</Link>
+                </div>
             </div>
-            <div className='btn-wrapper'>
-                <Button id='login-btn' isLoading={isSubmitting} type='submit'>
-                    Submit
-                </Button>
-            </div>
-        </form>
     )
 };
