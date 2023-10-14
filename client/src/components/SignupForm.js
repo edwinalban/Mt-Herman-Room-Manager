@@ -11,7 +11,7 @@ import { ADD_EMPLOYEE } from '../utils/mutations';
 import { Select } from '@chakra-ui/react';
 import Auth from '../utils/auth';
 
-export default function AddEmployeeForm() {
+export default function SignupForm() {
     const [addEmployee] = useMutation(ADD_EMPLOYEE);
 
     const {

@@ -5,6 +5,9 @@ import { setContext } from '@apollo/client/link/context';
 import './App.css';
 import AdminLanding from './pages/AdminLanding';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+import AddEmployeeForm from './components/SignupForm';
+import SignupForm from './components/SignupForm';
+import Room from './pages/Rooms';
 
 
 const httpLink = createHttpLink({
@@ -31,7 +34,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <AdminLanding />
+      <Room />
     </ApolloProvider>
   );
 }
