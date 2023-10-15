@@ -63,7 +63,6 @@ export default function SignupForm() {
                                     {errors.password && errors.password.message}
                                 </Form.Text>
                             </FormGroup>
-                            {/* You can add a similar FormGroup for 'permissions' here */}
                         </div>
                         <div className='btn-wrapper text-center mt-3'>
                             <Button id='add-btn' disabled={isSubmitting} type='submit'>
