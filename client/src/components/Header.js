@@ -1,4 +1,4 @@
-import Navigation from "./Navbar";
+import Navigation from "./Navigation";
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Header() {
