@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
 import Header from '../src/components/Header';
+import AdminLanding from './pages/AdminLanding';
+import Rooms from '../src/pages/Rooms';
 
 
 const httpLink = createHttpLink({
@@ -30,6 +32,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <Header />
@@ -37,6 +40,8 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginForm />} />
           <Route path='signup' element={<SignupForm />} />
+          <Route path='/home' element={<AdminLanding />} />
+          <Route path='/rooms' element={<Rooms />} />
         </Routes>
       </Router>
     </ApolloProvider>

@@ -4,8 +4,10 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function LoginForm() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [login] = useMutation(LOGIN);
 
     const {
@@ -24,10 +26,10 @@ export default function LoginForm() {
                 },
             });
             Auth.login(data.login.token);
+            setIsLoggedIn(true);
         } catch (err) {
             console.error(err);
         }
-        // route to the appropriate landing page
     };
 
     return (
@@ -65,9 +67,9 @@ export default function LoginForm() {
                             </FormGroup>
                         </div>
                         <div className='btn-wrapper text-center mt-3'>
-                            <Button id='login-btn' disabled={isSubmitting} type='submit'>
-                                Submit
-                            </Button>
+                                <Button id='login-btn' disabled={isSubmitting} type='submit'>
+                                    Submit
+                                </Button>
                         </div>
                     </Form>
                     <div className='text-center mt-3'>
