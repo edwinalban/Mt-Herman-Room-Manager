@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import { useQuery } from '@apollo/client';
 import { EMPLOYEE } from '../utils/queries';
 
-export default function AdminLanding() {
+export default function Employee() {
     const { data } = useQuery(EMPLOYEE);
 
     return (

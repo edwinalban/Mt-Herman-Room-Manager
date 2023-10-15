@@ -28,7 +28,6 @@ export default function SignupForm() {
         } catch (err) {
             console.error(err);
         }
-        // route to the appropriate landing page
     };
 
     return (
