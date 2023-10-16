@@ -45,7 +45,7 @@ function App() {
           <Route path='/home' element={<AdminLanding />} />
           <Route path='/rooms' element={<Rooms />} />
           <Route path='/room/:id' element={<Room />} />
-          <Route path='/room/assign' element={<AssignEmployee />} />
+          <Route path='/schedule/:id' element={<AssignEmployee />} />
         </Routes>
       </Router>
     </ApolloProvider>

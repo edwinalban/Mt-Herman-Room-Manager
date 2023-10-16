@@ -60,6 +60,14 @@ export const EMPLOYEE = gql`
     }
 `;
 
+export const EMPLOYEE_ID_BY_USERNAME = gql`
+    query EmployeeIdByUsername($username: String!) {
+        employeeIdByUsername(username: $username) {
+            _id
+        }
+    }
+`;
+
 export const ROOMS = gql`
     query Rooms {
         rooms {
@@ -230,6 +238,19 @@ export const SCHEDULES_BY_DATE_RANGE = gql`
                 username
             }
             date
+        }
+    }
+`;
+
+export const SCHEDULES_BY_ROOM_ID = gql`
+    query SchedulesByRoomId($roomId: ID!) {
+        schedulesByRoomId(roomId: $roomId) {
+            assignedTo {
+                _id
+                username
+            }
+            date
+            _id
         }
     }
 `;

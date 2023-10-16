@@ -42,6 +42,7 @@ const typeDefs = gql`
     }
 
     type Schedule {
+        _id: ID
         room: Room
         group: Group
         assignedTo: [Employee]
@@ -57,12 +58,14 @@ const typeDefs = gql`
         me: Employee
         employees: [Employee]
         employee(_id: ID!): Employee
+        employeeIdByUsername(username: String!): Employee
         rooms: [Room]
         room(_id: ID!): Room
         groups: [Group]
         group(_id: ID!): Group
         schedules(date: String): [Schedule]
         schedulesByDateRange(startDate: String!, endDate: String!): [Schedule]
+        schedulesByRoomId(roomId: ID!): [Schedule]
     }
 
     input AssignedToInput {
@@ -97,8 +100,8 @@ const typeDefs = gql`
         ): Room
         assignEmployee(
             _id: ID
-            assignedTo: [AssignedToInput]
-        ): Room
+            employeeIds: [ID]
+        ): Schedule
         addGroup(
             name: String!
             size: Int
