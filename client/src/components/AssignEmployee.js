@@ -1,55 +1,71 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
+import { Container, Row, Form, Button } from 'react-bootstrap';
+import { useQuery, useMutation } from '@apollo/client';
+import { EMPLOYEES } from '../utils/queries';
 import { ASSIGN_EMPLOYEE } from '../utils/mutations';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function AssignEmployee() {
-    const [assignEmployee] = useMutation(ASSIGN_EMPLOYEE)
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { data } = useQuery(EMPLOYEES);
+    const [assignEmployee] = useMutation(ASSIGN_EMPLOYEE);
+    const [checkedItems, setCheckedItems] = useState({});
 
     const {
         handleSubmit,
-        formState: { errors, isSubmitting },
+        formState: { isSubmitting },
     } = useForm();
-
 
     const onSubmit = async (values, e) => {
         e.preventDefault();
-        try {
-            const { data } = await assignEmployee({
-                variables: {
-                    username: values.username,
-                },
-            });
-            console.log(data);
-        } catch (err) {
-            console.error(err);
+        let filterIds = Object.values(checkedItems);
+        filterIds = filterIds.filter(item => item != false);
+        if (filterIds.length > 0) {
+            const { data } = await assignEmployee(
+                {
+                    variables: {
+                        employeeIds: filterIds,
+                        id: id
+                    }
+                }
+            )
+            navigate(`/room/${data.assignEmployee.room._id}`)
         }
-    };
+    }
+
+    const handleCheckboxChange = (e, id) => {
+        setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked ? id : false })
+    }
 
     return (
         <Container>
             <Row className="justify-content-center mt-5">
-                <Col xs={12} sm={10} md={8} lg={6}>
-                    <Form onSubmit={handleSubmit(onSubmit)}>
-                        <div className='border rounded text-center p-5'>
-                            <FormGroup>
-                                <FormLabel htmlFor='username'>Username</FormLabel>
-                                <FormControl
-                                    id='username'
-                                    placeholder='username'
-                                />
-                                <Form.Text className='text-danger'>
-                                    {errors.username && errors.username.message}
-                                </Form.Text>
-                            </FormGroup>
-                        </div>
-                        <div className='btn-wrapper text-center mt-3'>
-                            <Button id='login-btn' disabled={isSubmitting} type='submit'>
-                                Submit
-                            </Button>
-                        </div>
-                    </Form>
-                </Col>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='border rounded text-center p-5'>
+                        <ul>
+                            {data?.employees?.map((employee, index) =>
+                                <li key={index}>
+                                    <label>
+                                        {employee.username}
+                                        <input
+                                            type='checkbox'
+                                            name={employee.username}
+                                            onChange={(e) => { handleCheckboxChange(e, employee._id) }}
+                                            checked={checkedItems[employee.username] || false}
+                                        />
+                                    </label>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                    <div className='btn-wrapper text-center mt-3'>
+                        <Button id='login-btn' disabled={isSubmitting} type='submit'>
+                            Submit
+                        </Button>
+                    </div>
+                </Form>
             </Row>
         </Container>
     )

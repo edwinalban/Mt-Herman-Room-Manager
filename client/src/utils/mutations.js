@@ -83,15 +83,16 @@ export const ADMIN_UPDATE_ROOM = gql`
 `;
 
 export const ASSIGN_EMPLOYEE = gql`
-    mutation AssignEmployee($id: ID, $assignedTo: [AssignedToInput]) {
-        assignEmployee(_id: $id, assignedTo: $assignedTo) {
-            _id
-            building
-            floor
-            roomNumber
+    mutation AssignEmployee($id: ID, $employeeIds: [ID]) {
+        assignEmployee(_id: $id, employeeIds: $employeeIds) {
+            room {
+                _id
+                building
+                floor
+                roomNumber
+            }
             assignedTo {
                 _id
-                username
             }
         }
     }

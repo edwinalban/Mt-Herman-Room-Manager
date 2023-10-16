@@ -7,13 +7,13 @@ const resolvers = {
         me: async (parent, args, context) => {
             if (context.employee) {
                 const employee = await Employee.findOne({ _id: context.empoloyee._id })
-                .populate('schedules')
-                .populate(
-                    {
-                        path: 'schedules',
-                        populate: 'room'
-                    }
-                );
+                    .populate('schedules')
+                    .populate(
+                        {
+                            path: 'schedules',
+                            populate: 'room'
+                        }
+                    );
 
                 return employee
             }
@@ -41,6 +41,11 @@ const resolvers = {
                         populate: 'room'
                     }
                 );
+        },
+        employeeIdByUsername: async (parent, username) => {
+            const employee = await Employee.findOne(username);
+            console.log('Employee:', employee)
+            return employee;
         },
         rooms: async () => {
             const rooms = await Room.find()
@@ -104,6 +109,11 @@ const resolvers = {
                     ]
                 );
 
+            return schedules;
+        },
+        schedulesByRoomId: async (parent, { roomId }) => {
+            const schedules = await Schedule.find({ room: roomId })
+                .populate('assignedTo');
             return schedules;
         },
     },
@@ -193,52 +203,36 @@ const resolvers = {
 
             return room;
         },
-        assignEmployee: async (parent, { _id, assignedTo }) => {
+        assignEmployee: async (parent, { _id, employeeIds }) => {
             try {
-                const employee = await Employee.findById(assignedTo[0]._id);
-
-                if (!employee) {
-                    throw new Error('Employee not found');
-                }
-
-                const assignedEmployee = {
-                    _id: assignedTo[0]._id,
-                    username: employee.username,
-                };
-
-                const room = await Room.findByIdAndUpdate(
+                const schedule = await Schedule.findByIdAndUpdate(
                     _id,
                     {
                         $push: {
-                            assignedTo: assignedEmployee,
-                        },
+                            assignedTo: {
+                                $each: employeeIds
+                            }
+                        }
                     },
-                    { new: true },
+                    { new: true }
                 )
-                    .populate('assignedTo');
+                    .populate(
+                        [
+                            'assignedTo',
+                            'room'
+                        ]
+                    );
 
-                if (!room) {
-                    throw new Error('Room not found');
-                }
-
-                const schedule = new Schedule({
-                    room: room._id,
-                    assignedTo: assignedEmployee._id,
-                    date: new Date(), // You can set the date to the current date or any other relevant date.
-                });
-
-                await schedule.save();
-
-                await Employee.findByIdAndUpdate(
-                    assignedTo[0]._id,
+                await Employee.updateMany(
+                    { _id: { $in: employeeIds } },
                     {
-                        $addToSet: {
-                            schedules: schedule._id,
-                        },
+                        $push: {
+                            schedules: _id
+                        }
                     }
                 );
 
-                return room;
+                return schedule;
             } catch (error) {
                 console.error('Error assigning room:', error);
                 throw error;
