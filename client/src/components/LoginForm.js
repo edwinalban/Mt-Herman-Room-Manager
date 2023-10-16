@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function LoginForm() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

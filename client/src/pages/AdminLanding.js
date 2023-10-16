@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 export default function AdminLanding() {
     const { data } = useQuery(EMPLOYEES);
-    const [viewSchedules, setViewSchedules] = useState(Array(data?.Employees?.length).fill(false));
+    const [viewSchedules, setViewSchedules] = useState(Array(data?.employees?.length).fill(false));
 
-    if (!data || !data.Employees) {
+    if (!data || !data.employees) {
         return <div>Loading...</div>;
     }
 
@@ -29,7 +29,7 @@ export default function AdminLanding() {
                     </Col>
                 </Row>
                 <Row className="d-flex flex-wrap justify-content-center">
-                    {data?.Employees?.map((employee, index) =>
+                    {data?.employees?.map((employee, index) =>
                         <Col key={index} xs={12} sm={6} md={4} lg={3} className="mt-4">
                             <Card className="w-100" style={{ maxWidth: '18rem' }}>
                                 <Card.Body>

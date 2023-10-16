@@ -22,7 +22,7 @@ export const ME = gql`
 
 export const EMPLOYEES = gql`
     query Employees {
-        Employees {
+        employees {
             _id
             username
             schedules {
@@ -42,7 +42,7 @@ export const EMPLOYEES = gql`
 
 export const EMPLOYEE = gql`
     query Employee($id: ID!) {
-        Employee(_id: $id) {
+        employee(_id: $id) {
             _id
             username
             schedules {
@@ -62,7 +62,7 @@ export const EMPLOYEE = gql`
 
 export const ROOMS = gql`
     query Rooms {
-        Rooms {
+        rooms {
             _id
             building
             floor
@@ -96,7 +96,7 @@ export const ROOMS = gql`
 
 export const ROOM = gql`
     query Room($id: ID!) {
-        Room(_id: $id) {
+        room(_id: $id) {
             _id
             building
             floor
@@ -130,7 +130,7 @@ export const ROOM = gql`
 
 export const GROUPS = gql`
     query Groups {
-        Groups {
+        groups {
             _id
             name
             size
@@ -158,8 +158,8 @@ export const GROUPS = gql`
 `;
 
 export const GROUP = gql`
-query Groups {
-    Groups {
+query Group {
+    group {
         _id
         name
         size
@@ -188,7 +188,7 @@ query Groups {
 
 export const SCHEDULES = gql`
     query Schedules($date: String) {
-        Schedules(date: $date) {
+        schedules(date: $date) {
             room {
                 _id
                 building
@@ -212,7 +212,7 @@ export const SCHEDULES = gql`
 
 export const SCHEDULES_BY_DATE_RANGE = gql`
     query SchedulesByDateRange($startDate: String!, $endDate: String!) {
-        SchedulesByDateRange(startDate: $startDate, endDate: $endDate) {
+        schedulesByDateRange(startDate: $startDate, endDate: $endDate) {
             room {
                 _id
                 building
