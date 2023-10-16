@@ -11,7 +11,7 @@ export default function Employee() {
         <>
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
-                    <Card.Title>{data.employee?.schedule}</Card.Title>
+                    <Card.Title>{data.employee.schedule}</Card.Title>
                     <Button variant="primary">Update Schedule</Button>
                 </Card.Body>
             </Card>

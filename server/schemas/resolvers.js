@@ -20,7 +20,7 @@ const resolvers = {
 
             throw new AuthenticationError('You are not logged in');
         },
-        Employees: async () => {
+        employees: async () => {
             const employees = await Employee.find()
                 .populate('schedules')
                 .populate(
@@ -32,7 +32,7 @@ const resolvers = {
 
             return employees;
         },
-        Employee: async (parent, { _id }) => {
+        employee: async (parent, { _id }) => {
             return await Employee.findById(_id)
                 .populate('schedules')
                 .populate(
@@ -42,13 +42,13 @@ const resolvers = {
                     }
                 );
         },
-        Rooms: async () => {
+        rooms: async () => {
             const rooms = await Room.find()
                 .populate('assignedTo');
 
             return rooms;
         },
-        Room: async (parent, { _id }) => {
+        room: async (parent, { _id }) => {
             return await Room.findById(_id)
                 .populate(
                     [
@@ -58,7 +58,7 @@ const resolvers = {
                     ]
                 );
         },
-        Groups: async () => {
+        groups: async () => {
             const groups = await Group.find()
                 .populate(
                     [
@@ -69,7 +69,7 @@ const resolvers = {
 
             return groups;
         },
-        Group: async (parent, { _id }) => {
+        group: async (parent, { _id }) => {
             return await Group.findById(_id)
                 .populate(
                     [
@@ -78,7 +78,7 @@ const resolvers = {
                     ]
                 );
         },
-        Schedules: async (parent, { date }) => {
+        schedules: async (parent, { date }) => {
             return await Schedule.find({ date })
                 .populate(
                     [
@@ -88,7 +88,7 @@ const resolvers = {
                     ]
                 );
         },
-        SchedulesByDateRange: async (parent, { startDate, endDate }) => {
+        schedulesByDateRange: async (parent, { startDate, endDate }) => {
             const schedules = await Schedule.find({
                 date: {
                     $gte: startDate,
@@ -134,7 +134,7 @@ const resolvers = {
             const employee = await Employee.findOne({ username });
 
             if (!employee) {
-                throw new AuthenticationError('Incorrect username');
+                throw new AuthenticationError('Incorrect credentials');
             }
 
             const correctPW = await employee.validatePassword(password);
@@ -193,7 +193,7 @@ const resolvers = {
 
             return room;
         },
-        assignRoom: async (parent, { _id, assignedTo }) => {
+        assignEmployee: async (parent, { _id, assignedTo }) => {
             try {
                 const employee = await Employee.findById(assignedTo[0]._id);
 

@@ -55,14 +55,14 @@ const typeDefs = gql`
 
     type Query {
         me: Employee
-        Employees: [Employee]
-        Employee(_id: ID!): Employee
-        Rooms: [Room]
-        Room(_id: ID!): Room
-        Groups: [Group]
-        Group(_id: ID!): Group
-        Schedules(date: String): [Schedule]
-        SchedulesByDateRange(startDate: String!, endDate: String!): [Schedule] 
+        employees: [Employee]
+        employee(_id: ID!): Employee
+        rooms: [Room]
+        room(_id: ID!): Room
+        groups: [Group]
+        group(_id: ID!): Group
+        schedules(date: String): [Schedule]
+        schedulesByDateRange(startDate: String!, endDate: String!): [Schedule]
     }
 
     input AssignedToInput {
@@ -95,7 +95,7 @@ const typeDefs = gql`
             notes: String
             employeeId: ID
         ): Room
-        assignRoom(
+        assignEmployee(
             _id: ID
             assignedTo: [AssignedToInput]
         ): Room
