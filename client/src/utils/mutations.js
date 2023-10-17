@@ -142,3 +142,21 @@ export const UPDATE_GROUP = gql`
         }
     }
 `;
+
+export const ADD_SCHEDULE = gql`
+    mutation AddSchedule($room: ID, $assignedTo: [AssignedToInput], $date: String) {
+        addSchedule(room: $room, assignedTo: $assignedTo, date: $date) {
+            room {
+                _id
+                building
+                floor
+                roomNumber
+            }
+            assignedTo {
+                _id
+                username
+            }
+            date
+        }
+    }
+`;
