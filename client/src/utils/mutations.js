@@ -1,11 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const ADD_EMPLOYEE = gql`
-    mutation AddEmployee($username: String!, $password: String!, $permissions: String!) {
-        addEmployee(username: $username, password: $password, permissions: $permissions) {
+    mutation AddEmployee($username: String!, $password: String!) {
+        addEmployee(username: $username, password: $password) {
             employee {
                 _id
-                permissions
                 username
             }
             token
@@ -27,7 +26,6 @@ export const DELETE_EMPLOYEE = gql`
     mutation DeleteEmployee($id: ID!) {
         deleteEmployee(_id: $id) {
             _id
-            permissions
             username
         }
     }

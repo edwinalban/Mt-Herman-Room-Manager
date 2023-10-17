@@ -118,8 +118,8 @@ const resolvers = {
         },
     },
     Mutation: {
-        addEmployee: async (parent, { username, password, permissions }) => {
-            const employee = await Employee.create({ username, password, permissions });
+        addEmployee: async (parent, { username, password }) => {
+            const employee = await Employee.create({ username, password });
             const token = signToken(employee);
 
             return { token, employee };
@@ -138,7 +138,7 @@ const resolvers = {
             return employee;
         },
         deleteEmployee: async (parent, { _id }) => {
-            return await Employee.findByIdAndDelete(_id) //need to add way to remove employee id from Room/Schedule when deleted
+            return await Employee.findByIdAndDelete(_id) //need to add way to remove employee id from Schedule when deleted
         },
         login: async (parent, { username, password }) => {
             const employee = await Employee.findOne({ username });

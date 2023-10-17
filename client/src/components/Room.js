@@ -13,7 +13,7 @@ export default function Room() {
         variables: { id },
     });
     const [addScheduleClicked, setAddScheduleClicked] = useState(false);
-
+    
     if (loading) {
         return <p>Loading...</p>
     }
@@ -62,4 +62,4 @@ export default function Room() {
             </Container>
         </div>
     );
-};
+}

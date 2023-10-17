@@ -24,7 +24,7 @@ const typeDefs = gql`
         _id: ID
         username: String!
         password: String!
-        permissions: String!
+        permissions: String
         schedules: [Schedule]
     }
 
@@ -77,7 +77,6 @@ const typeDefs = gql`
         addEmployee(
             username: String!
             password: String!
-            permissions: String!
         ): Auth
         updateEmployeePermissions(
             _id: ID
