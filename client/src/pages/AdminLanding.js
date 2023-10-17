@@ -1,11 +1,13 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { EMPLOYEES } from '../utils/queries';
+import { DELETE_EMPLOYEE } from '../utils/mutations';
 import { useState } from 'react';
 
 export default function AdminLanding() {
     const { data } = useQuery(EMPLOYEES);
+    const [deleteEmployee] = useMutation(DELETE_EMPLOYEE);
     const [viewSchedules, setViewSchedules] = useState(Array(data?.employees?.length).fill(false));
 
     if (!data || !data.employees) {
@@ -18,7 +20,16 @@ export default function AdminLanding() {
             viewedSchedules[index] = !viewedSchedules[index];
             return viewedSchedules
         });
-    };
+    }
+
+    function handleDeleteEmployee(index) {
+        const deletedEmployeeId = data.employees[index]._id
+        console.log(deletedEmployeeId);
+        deleteEmployee({
+            variables: { id: deletedEmployeeId},
+            refetchQueries: [{query: EMPLOYEES}]
+        });
+    }
 
     return (
         <div>
@@ -28,13 +39,14 @@ export default function AdminLanding() {
                         <Navigation />
                     </Col>
                 </Row>
-                <Row className="d-flex flex-wrap justify-content-center">
+                <Row className='d-flex flex-wrap justify-content-center'>
                     {data?.employees?.map((employee, index) =>
-                        <Col key={index} xs={12} sm={6} md={4} lg={3} className="mt-4">
-                            <Card className="w-100" style={{ maxWidth: '18rem' }}>
+                        <Col key={index} xs={12} sm={6} md={4} lg={3} className='mt-4'>
+                            <Card className='w-100' style={{ maxWidth: '18rem' }}>
                                 <Card.Body>
                                     <Card.Title>{employee.username}</Card.Title>
-                                    <Button onClick={() => handleViewDetails(index)} variant="primary">View Schedules</Button>
+                                    <Button onClick={() => handleViewDetails(index)} variant='primary' className='me-4 mb-2'>View Schedules</Button>
+                                    <Button onClick={() => handleDeleteEmployee(index)} variant='danger' className='mb-2'>Delete Employee</Button>
                                     {viewSchedules[index] && (
                                         <div>
                                             <p>Schedules:</p>
@@ -54,4 +66,4 @@ export default function AdminLanding() {
             </Container>
         </div>
     );
-};
+}

@@ -2,19 +2,19 @@ const express = require('express');
 
 const employeeSeeds = [
     {
-        username: "edwin",
+        username: "barnabus",
         password: "password",
         permissions: "admin",
         roomsAssigned: [],
     },
     {
-        username: "scott",
+        username: "jamantha",
         password: "password1",
         permissions: "assistant",
         roomsAssigned: [],
     },
     {
-        username: "tim",
+        username: "carol",
         password: "password2",
         permissions: "employee",
         roomsAssigned: [],

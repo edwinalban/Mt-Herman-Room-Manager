@@ -19,7 +19,6 @@ const EmployeeSchema = new Schema(
         },
         permissions: {
             type: String,
-            required: true,
         },
         schedules: [
             {

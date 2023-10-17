@@ -21,7 +21,6 @@ export default function SignupForm() {
                 variables: {
                     username: values.username,
                     password: values.password,
-                    permissions: values.permissions,
                 },
             });
             Auth.login(newEmployee.data.addEmployee.employee.token);
