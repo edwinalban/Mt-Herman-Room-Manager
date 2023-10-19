@@ -20,7 +20,7 @@ export default function Navigation() {
           <Nav className="mr-auto">
             {links.map((link, index) => (
               <Nav.Link key={index} className="nav-a">
-                <Link to= {`'/' ${link.toLowerCase()}`}>
+                <Link to= {`${link.toLowerCase()}`}>
                 {link}
                 </Link>
               </Nav.Link>
