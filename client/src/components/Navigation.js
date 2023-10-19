@@ -4,7 +4,6 @@ import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 
 export default function Navigation() {
-  const links = ['Home', 'Rooms'];
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogout = () => {
@@ -18,13 +17,12 @@ export default function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
           <Nav className="mr-auto">
-            {links.map((link, index) => (
-              
-                <Link to= {`${link.toLowerCase()}` } className="nav-a" key={index}>
-                {link}
-                </Link>
-            
-            ))}
+            <Link to='/home' className="nav-a">
+              Home
+            </Link>
+            <Link to='/rooms' className="nav-a">
+              Rooms
+            </Link>
           </Nav>
           {isLoggedIn ? (
             <Nav>
