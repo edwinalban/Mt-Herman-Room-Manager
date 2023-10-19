@@ -5,8 +5,10 @@ import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
+    const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [login] = useMutation(LOGIN);
 
@@ -27,6 +29,7 @@ export default function LoginForm() {
             });
             Auth.login(data.login.token);
             setIsLoggedIn(true);
+            navigate('/home');
         } catch (err) {
             console.error(err);
         }
