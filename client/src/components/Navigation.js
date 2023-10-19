@@ -17,10 +17,10 @@ export default function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
           <Nav className="mr-auto">
-            <Link to='/home' className="nav-a">
+            <Link to='/home' className="nav-link">
               Home
             </Link>
-            <Link to='/rooms' className="nav-a">
+            <Link to='/rooms' className="nav-link">
               Rooms
             </Link>
           </Nav>
