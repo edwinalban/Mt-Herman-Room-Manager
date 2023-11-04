@@ -31,6 +31,7 @@ export default function AssignEmployee() {
                     }
                 }
             )
+            console.log(data.assignEmployee.room._id)
             navigate(`/room/${data.assignEmployee.room._id}`)
         }
     }
