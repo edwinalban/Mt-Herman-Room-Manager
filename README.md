@@ -1,5 +1,5 @@
 # Mt-Hermon-Room-Manager
-App for managing the status of rooms at Mt. Herman
+App for managing the status of rooms at Mt. Hermon
 
 ## Description
 
