@@ -59,6 +59,12 @@ const resolvers = {
 
             return rooms;
         },
+        nanRooms: async () => {
+            const rooms = await Room.find({ roomNumber: /[A-Z]/i })
+                .populate('assignedTo');
+
+            return rooms;
+        },
         room: async (parent, { _id }) => {
             return await Room.findById(_id)
                 .populate(
