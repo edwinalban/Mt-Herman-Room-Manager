@@ -3,7 +3,7 @@ import { Nav, Navbar } from 'react-bootstrap';
 import Auth from '../utils/auth';
 
 export default function Navigation() {
-  const links = ['Home', 'Rooms'];
+  const links = ['Home', 'Rooms', 'Employees'];
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogout = () => {

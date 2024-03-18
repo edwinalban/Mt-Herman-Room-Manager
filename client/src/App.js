@@ -10,6 +10,7 @@ import AdminLanding from './pages/AdminLanding';
 import Rooms from '../src/components/Rooms';
 import Room from './components/Room';
 import AssignEmployee from './components/AssignEmployee';
+import Employees from './components/Employees';
 
 
 const httpLink = createHttpLink({
@@ -46,6 +47,8 @@ function App() {
           <Route path='/rooms' element={<Rooms />} />
           <Route path='/room/:id' element={<Room />} />
           <Route path='/schedule/:id' element={<AssignEmployee />} />
+          <Route path='/employees' element={<Employees />} />
+          {/* <Route path='/lakeside' element={<Lakeside />} /> */}
         </Routes>
       </Router>
     </ApolloProvider>

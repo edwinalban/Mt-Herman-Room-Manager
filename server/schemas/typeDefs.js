@@ -60,6 +60,7 @@ const typeDefs = gql`
         employee(_id: ID!): Employee
         employeeIdByUsername(username: String!): Employee
         rooms: [Room]
+        roomsByBuilding(building: String!): [Room]
         room(_id: ID!): Room
         groups: [Group]
         group(_id: ID!): Group

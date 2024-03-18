@@ -53,6 +53,12 @@ const resolvers = {
 
             return rooms;
         },
+        roomsByBuilding: async (parent, { building }) => {
+            const rooms = await Room.find({ building })
+                .populate('assignedTo');
+
+            return rooms;
+        },
         room: async (parent, { _id }) => {
             return await Room.findById(_id)
                 .populate(
