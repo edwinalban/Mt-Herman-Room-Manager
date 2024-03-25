@@ -355,6 +355,8 @@ const resolvers = {
                     ]
                 );
 
+            await Room.findByIdAndUpdate(room, { nextCleaningDate: date });
+
             return newSchedule;
         }
     },

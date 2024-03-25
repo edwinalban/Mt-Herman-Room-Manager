@@ -5,7 +5,7 @@ import { EMPLOYEES } from '../utils/queries';
 import { DELETE_EMPLOYEE } from '../utils/mutations';
 import { useState } from 'react';
 
-export default function AdminLanding() {
+export default function AllEmployees() {
     const { data } = useQuery(EMPLOYEES);
     const [deleteEmployee] = useMutation(DELETE_EMPLOYEE);
     const [viewSchedules, setViewSchedules] = useState(Array(data?.employees?.length).fill(false));
