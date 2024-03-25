@@ -217,26 +217,29 @@ const resolvers = {
         },
         assignEmployee: async (parent, { _id, employeeIds }) => {
             try {
-                const schedule = await Schedule.findByIdAndUpdate(
-                    _id,
-                    {
-                        $push: {
-                            assignedTo: {
-                                $each: employeeIds
-                            }
-                        }
-                    },
-                    { new: true }
-                )
-                    .populate(
-                        [
-                            'assignedTo',
-                            'room'
-                        ]
-                    );
+                const schedule = await Schedule.findById(_id);
+
+                if (!schedule) {
+                    throw new Error('Schedule not found');
+                }
+
+                const uniqueEmployeeIds = employeeIds.filter(employeeId => !schedule.assignedTo.includes(employeeId));
+
+                if (uniqueEmployeeIds.length === 0) {
+                    return schedule
+                        .populate(
+                            [
+                                'assignedTo',
+                                'room'
+                            ]
+                        );
+                }
+
+                schedule.assignedTo.push(...uniqueEmployeeIds);
+                await schedule.save();
 
                 await Employee.updateMany(
-                    { _id: { $in: employeeIds } },
+                    { _id: { $in: uniqueEmployeeIds } },
                     {
                         $push: {
                             schedules: _id
@@ -244,9 +247,15 @@ const resolvers = {
                     }
                 );
 
-                return schedule;
+                return schedule
+                    .populate(
+                        [
+                            'assignedTo',
+                            'room'
+                        ]
+                    );
             } catch (error) {
-                console.error('Error assigning room:', error);
+                console.error('Error assigning employees to schedule:', error);
                 throw error;
             }
         },

@@ -13,13 +13,21 @@ export default function Room() {
         variables: { id },
     });
     const [addScheduleClicked, setAddScheduleClicked] = useState(false);
-    
+    const [refreshSchedules, setRefreshSchedules] = useState(false);
+
     if (loading) {
         return <p>Loading...</p>
     }
 
     const handleAddScheduleClicked = () => {
         setAddScheduleClicked(!addScheduleClicked);
+    }
+
+    const handleScheduleAdded = () => {
+        setRefreshSchedules(refreshSchedules => {
+            console.log(!refreshSchedules);
+            return !refreshSchedules;
+        });
     }
 
     return (
@@ -45,18 +53,18 @@ export default function Room() {
                                     variant="primary"
                                     onClick={() => handleAddScheduleClicked(setAddScheduleClicked)}
                                 >
-                                    Add Schedule
+                                    {addScheduleClicked ? 'Nevermind' : 'Add Schedule'}
                                 </Button>
                                 {addScheduleClicked && (
                                     <div>
-                                        <AddScheduleForm />
+                                        <AddScheduleForm onScheduleAdded={handleScheduleAdded} />
                                     </div>
                                 )}
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col>
-                        <SchedulesByRoomId />
+                        <SchedulesByRoomId refreshSchedules={refreshSchedules} />
                     </Col>
                 </Row>
             </Container>

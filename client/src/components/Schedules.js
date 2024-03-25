@@ -1,25 +1,19 @@
 import { Button, Card, Row, Col } from 'react-bootstrap';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { SCHEDULES_BY_ROOM_ID } from '../utils/queries';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
-export default function SchedulesByRoomId() {
+export default function SchedulesByRoomId({ refreshSchedules }) {
     const { id } = useParams();
-    const [schedulesByRoomId, { loading, data }] = useLazyQuery(SCHEDULES_BY_ROOM_ID, {
+    const { loading, data, refetch } = useQuery(SCHEDULES_BY_ROOM_ID, {
         variables: { roomId: id },
     });
 
     useEffect(() => {
-        schedulesByRoomId(
-            {
-                variables: {
-                    roomId: id
-                }
-            }
-        )
-    }, [id]);
+            refetch();
+    }, [id, refreshSchedules]);
 
     if (loading) {
         return <p>Loading...</p>
