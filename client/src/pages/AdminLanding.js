@@ -1,4 +1,4 @@
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
@@ -33,7 +33,6 @@ export default function AdminLanding() {
                 <Row className='d-flex flex-wrap justify-content-center'>
                     {data?.schedulesByDateRange?.map((scheduleByDateRange, index) => (
                         <Col key={index} xs={12} sm={6} md={4} lg={3} className='mt-4 d-flex justify-content-center'>
-                            <Link to={`/`}>
                                 <Card>
                                     <Card.Body>
                                         <Card.Title>{`${scheduleByDateRange.room.building} ${scheduleByDateRange.room.roomNumber}`}</Card.Title>
@@ -42,9 +41,11 @@ export default function AdminLanding() {
                                             <p>Assigned to: {scheduleByDateRange.assignedTo.username}</p>
                                             <p>Notes: {scheduleByDateRange.room.notes}</p>
                                         </div>
+                                        <Link to={`/room/${scheduleByDateRange.room._id}`}>
+                                        <Button variant="primary">View Details</Button>
+                                        </Link>
                                     </Card.Body>
                                 </Card>
-                            </Link>
                         </Col>
                     ))}
                 </Row>
