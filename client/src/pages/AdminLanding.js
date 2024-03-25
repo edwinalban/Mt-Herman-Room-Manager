@@ -37,7 +37,7 @@ export default function AdminLanding() {
                                     <Card.Body>
                                         <Card.Title>{`${scheduleByDateRange.room.building} ${scheduleByDateRange.room.roomNumber}`}</Card.Title>
                                         <div>
-                                            <p>Next cleaning date: {scheduleByDateRange.room.nextCleaningDate}</p>
+                                            <p>Scheduled cleaning date: {scheduleByDateRange.date}</p>
                                             <p>Assigned to: {scheduleByDateRange.assignedTo.username}</p>
                                             <p>Notes: {scheduleByDateRange.room.notes}</p>
                                         </div>

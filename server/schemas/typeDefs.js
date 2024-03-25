@@ -9,7 +9,7 @@ const typeDefs = gql`
         assignedTo: [Employee]
         clean: Boolean
         inspected: Boolean
-        nextCleaningDate: String
+        nextCleaningDate: [String]
         midweekFluff: Boolean
         weekendFluff: Boolean
         notes: String

@@ -346,6 +346,14 @@ const resolvers = {
                 }
             );
 
+            const roomToUpdate = await Room.findById(room);
+
+            roomToUpdate.nextCleaningDate.push(date);
+
+            roomToUpdate.nextCleaningDate.sort((a, b) => a - b);
+
+            await roomToUpdate.save();
+
             const newSchedule = await Schedule.findById(schedule._id)
                 .populate(
                     [
@@ -354,8 +362,6 @@ const resolvers = {
                         'assignedTo'
                     ]
                 );
-
-            await Room.findByIdAndUpdate(room, { nextCleaningDate: date });
 
             return newSchedule;
         }
