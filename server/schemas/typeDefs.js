@@ -9,7 +9,7 @@ const typeDefs = gql`
         assignedTo: [Employee]
         clean: Boolean
         inspected: Boolean
-        nextCleaningDate: String
+        nextCleaningDate: [String]
         midweekFluff: Boolean
         weekendFluff: Boolean
         notes: String
@@ -60,6 +60,8 @@ const typeDefs = gql`
         employee(_id: ID!): Employee
         employeeIdByUsername(username: String!): Employee
         rooms: [Room]
+        roomsByBuilding(building: String!): [Room]
+        nanRooms: [Room]
         room(_id: ID!): Room
         groups: [Group]
         group(_id: ID!): Group
@@ -100,6 +102,10 @@ const typeDefs = gql`
         assignEmployee(
             _id: ID
             employeeIds: [ID]
+        ): Schedule
+        unassignEmployee(
+            _id: ID
+            employeeId: ID
         ): Schedule
         addGroup(
             name: String!

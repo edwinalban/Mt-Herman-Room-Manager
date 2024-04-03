@@ -96,6 +96,22 @@ export const ASSIGN_EMPLOYEE = gql`
     }
 `;
 
+export const UNASSIGN_EMPLOYEE = gql`
+    mutation UnassignEmployee($id: ID, $employeeId: ID) {
+        unassignEmployee(_id: $id, employeeId: $employeeId) {
+            room {
+                _id
+                building
+                floor
+                roomNumber
+            }
+            assignedTo {
+                _id
+            }
+        }
+    }
+  `
+
 export const ADD_GROUP = gql`
     mutation AddGroup($name: String!, $currentRoom: ID!, $size: Int, $arriving: String, $departing: String, $midweek: Boolean, $weekend: Boolean, $amenities: String) {
         addGroup(name: $name, currentRoom: $currentRoom, size: $size, arriving: $arriving, departing: $departing, midweek: $midweek, weekend: $weekend, amenities: $amenities) {

@@ -102,6 +102,74 @@ export const ROOMS = gql`
     }
 `;
 
+export const ROOMS_BY_BUILDING = gql`
+    query RoomsByBuilding($building: String!) {
+        roomsByBuilding(building: $building) {
+            _id
+            building
+            floor
+            roomNumber
+            assignedTo {
+                _id
+                username
+            }
+            clean
+            inspected
+            nextCleaningDate
+            midweekFluff
+            weekendFluff
+            masterDeluxe
+            ada
+            group {
+                _id
+                name
+                arriving
+                departing
+            }
+            notes
+            lastUpdated
+            updatedBy {
+                _id
+                username
+            }
+        }
+    }
+`;
+
+export const NAN_ROOMS = gql`
+    query NanRooms {
+        nanRooms {
+            _id
+            building
+            floor
+            roomNumber
+            assignedTo {
+                _id
+                username
+            }
+            clean
+            inspected
+            nextCleaningDate
+            midweekFluff
+            weekendFluff
+            masterDeluxe
+            ada
+            group {
+                _id
+                name
+                arriving
+                departing
+            }
+            notes
+            lastUpdated
+            updatedBy {
+                _id
+                username
+            }
+        }
+    }
+`;
+
 export const ROOM = gql`
     query Room($id: ID!) {
         room(_id: $id) {

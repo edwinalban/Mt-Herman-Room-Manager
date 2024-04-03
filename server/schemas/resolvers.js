@@ -53,6 +53,18 @@ const resolvers = {
 
             return rooms;
         },
+        roomsByBuilding: async (parent, { building }) => {
+            const rooms = await Room.find({ building })
+                .populate('assignedTo');
+
+            return rooms;
+        },
+        nanRooms: async () => {
+            const rooms = await Room.find({ roomNumber: /[A-Z]/i })
+                .populate('assignedTo');
+
+            return rooms;
+        },
         room: async (parent, { _id }) => {
             return await Room.findById(_id)
                 .populate(
@@ -205,26 +217,29 @@ const resolvers = {
         },
         assignEmployee: async (parent, { _id, employeeIds }) => {
             try {
-                const schedule = await Schedule.findByIdAndUpdate(
-                    _id,
-                    {
-                        $push: {
-                            assignedTo: {
-                                $each: employeeIds
-                            }
-                        }
-                    },
-                    { new: true }
-                )
-                    .populate(
-                        [
-                            'assignedTo',
-                            'room'
-                        ]
-                    );
+                const schedule = await Schedule.findById(_id);
+
+                if (!schedule) {
+                    throw new Error('Schedule not found');
+                }
+
+                const uniqueEmployeeIds = employeeIds.filter(employeeId => !schedule.assignedTo.includes(employeeId));
+
+                if (uniqueEmployeeIds.length === 0) {
+                    return schedule
+                        .populate(
+                            [
+                                'assignedTo',
+                                'room'
+                            ]
+                        );
+                }
+
+                schedule.assignedTo.push(...uniqueEmployeeIds);
+                await schedule.save();
 
                 await Employee.updateMany(
-                    { _id: { $in: employeeIds } },
+                    { _id: { $in: uniqueEmployeeIds } },
                     {
                         $push: {
                             schedules: _id
@@ -232,9 +247,39 @@ const resolvers = {
                     }
                 );
 
-                return schedule;
+                return schedule
+                    .populate(
+                        [
+                            'assignedTo',
+                            'room'
+                        ]
+                    );
             } catch (error) {
-                console.error('Error assigning room:', error);
+                console.error('Error assigning employees to schedule:', error);
+                throw error;
+            }
+        },
+        unassignEmployee: async (parent, { _id, employeeId }) => {
+            try {
+                const schedule = await Schedule.findOneAndUpdate(
+                    { _id: _id },
+                    {
+                        $pull: {
+                            assignedTo: employeeId
+                        }
+                    },
+                    { new: true }
+                );
+
+                return schedule
+                    .populate(
+                        [
+                            'assignedTo',
+                            'room'
+                        ]
+                    );
+            } catch (error) {
+                console.error('Error removing employee from schedule', error);
                 throw error;
             }
         },
@@ -333,6 +378,14 @@ const resolvers = {
                     date
                 }
             );
+
+            const roomToUpdate = await Room.findById(room);
+
+            roomToUpdate.nextCleaningDate.push(date);
+
+            roomToUpdate.nextCleaningDate.sort((a, b) => a - b);
+
+            await roomToUpdate.save();
 
             const newSchedule = await Schedule.findById(schedule._id)
                 .populate(

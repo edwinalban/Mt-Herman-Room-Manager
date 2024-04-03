@@ -7,10 +7,12 @@ import SignupForm from './components/SignupForm';
 import LoginForm from './components/LoginForm';
 import Header from '../src/components/Header';
 import AdminLanding from './pages/AdminLanding';
-import Rooms from '../src/components/Rooms';
 import Room from './components/Room';
 import AssignEmployee from './components/AssignEmployee';
-
+import Employees from './pages/Employees';
+import RoomsByBuilding from './components/Rooms';
+import NanRooms from '../src/components/NanRooms';
+import Buildings from './pages/Buildings';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -43,9 +45,12 @@ function App() {
           <Route path='/' element={<LoginForm />} />
           <Route path='/signup' element={<SignupForm />} />
           <Route path='/home' element={<AdminLanding />} />
-          <Route path='/rooms' element={<Rooms />} />
           <Route path='/room/:id' element={<Room />} />
           <Route path='/schedule/:id' element={<AssignEmployee />} />
+          <Route path='/employees' element={<Employees />} />
+          <Route path='/:building' element={<RoomsByBuilding />} />
+          <Route path='/nanrooms' element={<NanRooms />} />
+          <Route path='/buildings' element={<Buildings />} />
         </Routes>
       </Router>
     </ApolloProvider>

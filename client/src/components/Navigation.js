@@ -4,6 +4,7 @@ import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 
 export default function Navigation() {
+  const links = ['Home', 'Buildings', 'Employees'];
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogout = () => {

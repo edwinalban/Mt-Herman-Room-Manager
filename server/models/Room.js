@@ -28,10 +28,12 @@ const RoomSchema = new Schema(
         inspected: {
             type: Boolean,
         },
-        nextCleaningDate: {
-            type: Date,
-            get: (date) => (formatDate(date)),
-        },
+        nextCleaningDate: [
+            {
+                type: Date,
+                get: (date) => (formatDate(date)),
+            },
+        ],
         midweekFluff: {
             type: Boolean,
             default: false,

@@ -1,34 +1,24 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
-import { useMutation, useQuery } from '@apollo/client';
-import { EMPLOYEES } from '../utils/queries';
-import { DELETE_EMPLOYEE } from '../utils/mutations';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { SCHEDULES_BY_DATE_RANGE } from '../utils/queries';
+import { formatDate } from '../utils/formatDate';
 
 export default function AdminLanding() {
-    const { data } = useQuery(EMPLOYEES);
-    const [deleteEmployee] = useMutation(DELETE_EMPLOYEE);
-    const [viewSchedules, setViewSchedules] = useState(Array(data?.employees?.length).fill(false));
+    const today = new Date();
+    const nextWeek = new Date();
+    nextWeek.setDate(nextWeek.getDate() + 7);
 
-    if (!data || !data.employees) {
-        return <div>Loading...</div>;
-    }
+    const { data, loading } = useQuery(SCHEDULES_BY_DATE_RANGE, {
+        variables: {
+            startDate: formatDate(today),
+            endDate: formatDate(nextWeek)
+        }
+    });
 
-    const handleViewDetails = (index) => {
-        setViewSchedules((cardsClicked) => {
-            const viewedSchedules = [...cardsClicked];
-            viewedSchedules[index] = !viewedSchedules[index];
-            return viewedSchedules
-        });
-    }
-
-    function handleDeleteEmployee(index) {
-        const deletedEmployeeId = data.employees[index]._id
-        console.log(deletedEmployeeId);
-        deleteEmployee({
-            variables: { id: deletedEmployeeId},
-            refetchQueries: [{query: EMPLOYEES}]
-        });
+    if (loading) {
+        return <p>Loading...</p>
     }
 
     return (
@@ -39,31 +29,27 @@ export default function AdminLanding() {
                         <Navigation />
                     </Col>
                 </Row>
+                <h2 className='text-center'>Active Schedules Snapshot</h2>
                 <Row className='d-flex flex-wrap justify-content-center'>
-                    {data?.employees?.map((employee, index) =>
-                        <Col key={index} xs={12} sm={6} md={4} lg={3} className='mt-4'>
-                            <Card className='w-100' style={{ maxWidth: '18rem' }}>
-                                <Card.Body>
-                                    <Card.Title>{employee.username}</Card.Title>
-                                    <Button onClick={() => handleViewDetails(index)} variant='primary' className='me-4 mb-2'>View Schedules</Button>
-                                    <Button onClick={() => handleDeleteEmployee(index)} variant='danger' className='mb-2'>Delete Employee</Button>
-                                    {viewSchedules[index] && (
+                    {data?.schedulesByDateRange?.map((scheduleByDateRange, index) => (
+                        <Col key={index} xs={12} sm={6} md={4} lg={3} className='mt-4 d-flex justify-content-center'>
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title>{`${scheduleByDateRange.room.building} ${scheduleByDateRange.room.roomNumber}`}</Card.Title>
                                         <div>
-                                            <p>Schedules:</p>
-                                            {employee.schedules.map((schedule, scheduleIndex) => (
-                                                <div key={scheduleIndex} className="border rounded p-3">
-                                                    <p>Room: {`${schedule.room.building} ${schedule.room.roomNumber}`}</p>
-                                                    <p>Next Cleaning Date: {schedule.room.nextCleaningDate}</p>
-                                                </div>
-                                            ))}
+                                            <p>Scheduled cleaning date: {scheduleByDateRange.date}</p>
+                                            <p>Assigned to: {scheduleByDateRange.assignedTo.username}</p>
+                                            <p>Notes: {scheduleByDateRange.room.notes}</p>
                                         </div>
-                                    )}
-                                </Card.Body>
-                            </Card>
+                                        <Link to={`/room/${scheduleByDateRange.room._id}`}>
+                                        <Button variant="primary">View Details</Button>
+                                        </Link>
+                                    </Card.Body>
+                                </Card>
                         </Col>
-                    )}
+                    ))}
                 </Row>
             </Container>
-        </div>
+        </div >
     );
 }

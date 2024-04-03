@@ -1,28 +1,38 @@
 import { Button, Card, Row, Col } from 'react-bootstrap';
-import { useLazyQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { SCHEDULES_BY_ROOM_ID } from '../utils/queries';
+import { UNASSIGN_EMPLOYEE } from '../utils/mutations';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function SchedulesByRoomId() {
+export default function SchedulesByRoomId({ refreshSchedules }) {
     const { id } = useParams();
-    const [schedulesByRoomId, { loading, data }] = useLazyQuery(SCHEDULES_BY_ROOM_ID, {
+    const { loading, data, refetch } = useQuery(SCHEDULES_BY_ROOM_ID, {
         variables: { roomId: id },
     });
+    const [unassignEmployee] = useMutation(UNASSIGN_EMPLOYEE);
+    const [unassignedEmployee, setUnassignedEmployee] = useState(false);
 
     useEffect(() => {
-        schedulesByRoomId(
-            {
-                variables: {
-                    roomId: id
-                }
-            }
-        )
-    }, [id]);
+        console.log("Room ID:", id);
+        refetch();
+    }, [id, refreshSchedules, unassignedEmployee]);
 
     if (loading) {
         return <p>Loading...</p>
+    }
+
+    function handleUnassignEmployee(scheduleId, employeeId) {
+        return () => {
+            unassignEmployee({
+                variables: {
+                    id: scheduleId,
+                    employeeId: employeeId
+                },
+            });
+            setUnassignedEmployee(!unassignedEmployee);
+        }
     }
 
     return (
@@ -35,12 +45,14 @@ export default function SchedulesByRoomId() {
                             <ul className='list-unstyled'>
                                 {schedule.assignedTo?.map((employee, index) =>
                                     <li key={index}>
-                                        <p>{employee.username}</p>
+                                        <p className='d-flex justify-content-between'>{employee.username}
+                                            <Button onClick={handleUnassignEmployee(schedule._id, employee._id)} variant='light' size='sm' >X</Button>
+                                        </p>
                                     </li>
                                 )}
                             </ul>
                             <Link to={`/schedule/${schedule._id}`}>
-                                <Button variant="primary">Assign Employee</Button>
+                                <Button variant='primary'>Assign Employee</Button>
                             </Link>
                         </Card.Body>
                     </Card>
