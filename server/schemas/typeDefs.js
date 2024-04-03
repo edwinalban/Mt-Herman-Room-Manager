@@ -103,6 +103,10 @@ const typeDefs = gql`
             _id: ID
             employeeIds: [ID]
         ): Schedule
+        unassignEmployee(
+            _id: ID
+            employeeId: ID
+        ): Schedule
         addGroup(
             name: String!
             size: Int

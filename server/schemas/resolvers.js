@@ -259,6 +259,30 @@ const resolvers = {
                 throw error;
             }
         },
+        unassignEmployee: async (parent, { _id, employeeId }) => {
+            try {
+                const schedule = await Schedule.findOneAndUpdate(
+                    { _id: _id },
+                    {
+                        $pull: {
+                            assignedTo: employeeId
+                        }
+                    },
+                    { new: true }
+                );
+
+                return schedule
+                    .populate(
+                        [
+                            'assignedTo',
+                            'room'
+                        ]
+                    );
+            } catch (error) {
+                console.error('Error removing employee from schedule', error);
+                throw error;
+            }
+        },
         addGroup: async (parent, {
             name,
             size,

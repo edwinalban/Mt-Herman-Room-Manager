@@ -24,7 +24,6 @@ export default function AllEmployees() {
 
     function handleDeleteEmployee(index) {
         const deletedEmployeeId = data.employees[index]._id
-        console.log(deletedEmployeeId);
         deleteEmployee({
             variables: { id: deletedEmployeeId},
             refetchQueries: [{query: EMPLOYEES}]

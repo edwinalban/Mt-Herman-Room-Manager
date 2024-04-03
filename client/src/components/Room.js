@@ -25,7 +25,6 @@ export default function Room() {
 
     const handleScheduleAdded = () => {
         setRefreshSchedules(refreshSchedules => {
-            console.log(!refreshSchedules);
             return !refreshSchedules;
         });
     }
