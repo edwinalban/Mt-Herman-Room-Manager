@@ -21,7 +21,7 @@ const {
 const employeeSeeds = require('./employee');
 
 mongoose
-    .connect('mongodb://localhost:27017/roomManagerDB', {
+    .connect('mongodb+srv://edwinalban:0GfVT9WGKwVtnAzn@cluster0.938sxem.mongodb.net/roomManagerDB?retryWrites=true&w=majority', {
         useNewUrlParser: true
     })
     .then(() => {

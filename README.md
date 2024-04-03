@@ -1,5 +1,5 @@
-# Mt-Herman-Room-Manager
-App for managing the status of rooms at Mt. Herman
+# Mt-Hermon-Room-Manager
+App for managing the status of rooms at Mt. Hermon
 
 ## Description
 
@@ -21,8 +21,12 @@ The purpose of the project is to replace a Googles Docs spreadsheet that is curr
 
 ## Usage
 
-The project can be found here: 
+The project can be found here: https://still-caverns-65052-3e7b82029131.herokuapp.com/
 
 A user can create an account or log in, if they already have one. The landing page shows a dashboard of all of the employees, their schedules can be viewed, and they can be removed from the database, if necessary. The navbar will route the use to the desired page. Currently, all of the rooms can be viewed and a user can choose to view the details of a room, at which point the cleaning schedules for the room can be viewed and added. Employees can be assigned to individual schedules, if desired.
 
 
+![alt text](client/public/assets/images/mt-herman-landing-screenshot.png)
+![alt text](client/public/assets/images/mt-herman-rooms-screenshot.png)
+![alt text](client/public/assets/images/mt-herman-room-screenshot.png)
+![alt text](client/public/assets/images/mt-herman-assign-screenshot.png)
