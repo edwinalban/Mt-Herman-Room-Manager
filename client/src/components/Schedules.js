@@ -6,8 +6,6 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-// develop seems to be working
-
 export default function SchedulesByRoomId({ refreshSchedules }) {
     const { id } = useParams();
     const { loading, data, refetch } = useQuery(SCHEDULES_BY_ROOM_ID, {
