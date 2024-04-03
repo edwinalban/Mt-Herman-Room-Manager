@@ -43,7 +43,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<LoginForm />} />
-          <Route path='signup' element={<SignupForm />} />
+          <Route path='/signup' element={<SignupForm />} />
           <Route path='/home' element={<AdminLanding />} />
           <Route path='/room/:id' element={<Room />} />
           <Route path='/schedule/:id' element={<AssignEmployee />} />
