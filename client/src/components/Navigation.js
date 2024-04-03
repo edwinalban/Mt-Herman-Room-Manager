@@ -21,8 +21,11 @@ export default function Navigation() {
             <Link to='/home' className="nav-link">
               Home
             </Link>
-            <Link to='/rooms' className="nav-link">
-              Rooms
+            <Link to='/buildings' className="nav-link">
+              Buildings
+            </Link>
+            <Link to='/employees' className="nav-link">
+              Employees
             </Link>
           </Nav>
           {isLoggedIn ? (

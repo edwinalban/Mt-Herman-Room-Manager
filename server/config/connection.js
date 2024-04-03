@@ -1,5 +1,18 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://edwinalban:0GfVT9WGKwVtnAzn@cluster0.938sxem.mongodb.net/roomManagerDB?retryWrites=true&w=majority');
+let connectionString;
+
+if (process.env.NODE_ENV === 'production') {
+
+    connectionString = process.env.MONGODB_URI;
+} else {
+
+    connectionString = 'mongodb://127.0.0.1:27017/roomManagerDB';
+}
+
+mongoose.connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 module.exports = mongoose.connection;
