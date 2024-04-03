@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 export default function Navigation() {
   const links = ['Home', 'Buildings', 'Employees'];
@@ -17,11 +18,15 @@ export default function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
           <Nav className="mr-auto">
-            {links.map((link, index) => (
-              <Nav.Link key={index} href={'/' + link.toLowerCase()} className="nav-a">
-                {link}
-              </Nav.Link>
-            ))}
+            <Link to='/home' className="nav-link">
+              Home
+            </Link>
+            <Link to='/buildings' className="nav-link">
+              Buildings
+            </Link>
+            <Link to='/employees' className="nav-link">
+              Employees
+            </Link>
           </Nav>
           {isLoggedIn ? (
             <Nav>
