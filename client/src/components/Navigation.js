@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 export default function Navigation() {
   const links = ['Home', 'Buildings', 'Employees'];
